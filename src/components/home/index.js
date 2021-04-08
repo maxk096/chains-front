@@ -115,7 +115,8 @@ const styles = (theme) => {
             },
             '& p': {
                 opacity: 0.8,
-                fontSize: '1.1em'
+                fontSize: '1.1em',
+                marginBottom: 30
             }
         },
         ctaButton: {
