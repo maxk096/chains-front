@@ -36,14 +36,18 @@ export const lightTheme = createMuiTheme({
             }
         }
     },
+    link: {
+        text: '#3e7cd8',
+        textActive: '#fff',
+        bg: 'transparent',
+        activeBg: '#1b8481'
+    },
     light: '#fff',
     logoTitle: '#fff',
     textPrimary: '#465566',
     textSecondary: '#7b8692',
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
-    linkPrimary: '#3e7cd8',
-    linkPrimaryActive: '#3e7cd8',
     logoLight: img('chains-logo-light.png'),
     logoDark: img('chains-logo-dark.png')
 })

@@ -3,12 +3,11 @@ import classNames from 'classnames'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { routes } from '../../stores/routing/routes'
-import { getCommonStyles } from '../common-styles'
 import { CommonLink } from './link'
+import { Logo } from './logo'
 
 const styles = (theme) => {
     return createStyles({
-        ...getCommonStyles(theme),
         root: {
             display: 'flex',
             justifyContent: 'space-between',
@@ -31,27 +30,9 @@ const styles = (theme) => {
             color: theme.headerLink,
             margin: '10px 20px',
             padding: '10px 20px',
-            '&:hover': {
-                color: theme.headerLinkActive
-            },
             [theme.breakpoints.down('sm')]: {
                 margin: '0 5px'
             }
-        },
-        logo: {
-            backgroundImage: `url("${theme.logoLight}")`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            width: 35,
-            height: 35
-        },
-        logoTitle: {
-            marginLeft: 15,
-            fontSize: '1.2em',
-            color: theme.logoTitle
-        },
-        logoLink: {
-            padding: '5px 10px'
         }
     })
 }
@@ -64,14 +45,10 @@ const HeaderPure = (props) => {
                 [classes.root]: true,
                 [classes.transparent]: isTransparent
             })}
-            position="sticky"
+            position='sticky'
         >
-            <CommonLink
-                to={routes.homepage.url}
-                className={classNames(classes.logoLink, classes.dflex, classes.alignCenter)}
-            >
-                <div className={classes.logo}></div>
-                <span className={classes.logoTitle}>Chains</span>
+            <CommonLink withHover={false} to={routes.homepage.url}>
+                <Logo />
             </CommonLink>
             <div className={classes.links}>
                 <CommonLink className={classes.link} to={routes.signup.url}>
