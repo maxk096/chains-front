@@ -6,6 +6,8 @@ import React from 'react'
 const styles = (theme) => {
     return createStyles({
         root: {
+            display: 'flex',
+            flexDirection: 'column',
             height: '100%',
             color: theme.textPrimary
         }

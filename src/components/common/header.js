@@ -48,7 +48,7 @@ const HeaderPure = (props) => {
             position='sticky'
         >
             <CommonLink withHover={false} to={routes.homepage.url}>
-                <Logo />
+                <Logo reversed />
             </CommonLink>
             <div className={classes.links}>
                 <CommonLink className={classes.link} to={routes.signup.url}>

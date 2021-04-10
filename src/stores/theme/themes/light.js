@@ -40,14 +40,15 @@ export const lightTheme = createMuiTheme({
         text: '#3e7cd8',
         textActive: '#fff',
         bg: 'transparent',
-        activeBg: '#1b8481'
+        activeBg: 'hsla(0,0%,100%,.2)'
     },
     light: '#fff',
-    logoTitle: '#fff',
+    logoTitle: '#ff9000',
+    logoTitleReversed: '#fff',
     textPrimary: '#465566',
     textSecondary: '#7b8692',
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
     logoLight: img('chains-logo-light.png'),
-    logoDark: img('chains-logo-dark.png')
+    logoOrange: img('chains-logo-orange.png')
 })

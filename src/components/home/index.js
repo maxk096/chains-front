@@ -12,8 +12,8 @@ const styles = (theme) => {
     return createStyles({
         ...getCommonStyles(theme),
         root: {
-            display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexDirection: 'row'
         },
         background: {
             position: 'fixed',
