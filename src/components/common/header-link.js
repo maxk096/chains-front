@@ -2,27 +2,24 @@ import { createStyles, withStyles } from '@material-ui/core'
 import classNames from 'classnames'
 import { flowRight } from 'lodash'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { CommonLink } from './link'
 
 const styles = (theme) => {
     return createStyles({
         root: {
-            color: theme.link.text,
-            textDecoration: 'none',
-            transitionProperty: 'color, background',
-            transitionDuration: '200ms',
-            borderRadius: '20px',
+            color: theme.header.link.text,
             '&:hover': {
-                color: theme.link.textActive
+                color: theme.header.link.textActive,
+                background: theme.header.link.activeBg
             }
         }
     })
 }
 
-const CommonLinkPure = (props) => {
+const HeaderLinkPure = (props) => {
     const { classes, className, ...rest } = props
     return (
-        <Link
+        <CommonLink
             className={classNames({
                 [classes.root]: true,
                 [className]: className
@@ -32,6 +29,6 @@ const CommonLinkPure = (props) => {
     )
 }
 
-const CommonLink = flowRight(withStyles(styles))(CommonLinkPure)
+const HeaderLink = flowRight(withStyles(styles))(HeaderLinkPure)
 
-export { CommonLink }
+export { HeaderLink }

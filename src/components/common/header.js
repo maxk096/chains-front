@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { routes } from '../../stores/routing/routes'
-import { CommonLink } from './link'
+import { HeaderLink } from './header-link'
 import { Logo } from './logo'
 
 const styles = (theme) => {
@@ -33,6 +33,12 @@ const styles = (theme) => {
             [theme.breakpoints.down('sm')]: {
                 margin: '0 5px'
             }
+        },
+        logoLink: {
+            '&:hover': {
+                color: theme.header.link.text,
+                background: 'none'
+            }
         }
     })
 }
@@ -47,16 +53,16 @@ const HeaderPure = (props) => {
             })}
             position='sticky'
         >
-            <CommonLink withHover={false} to={routes.homepage.url}>
+            <HeaderLink className={classes.logoLink} to={routes.homepage.url}>
                 <Logo reversed />
-            </CommonLink>
+            </HeaderLink>
             <div className={classes.links}>
-                <CommonLink className={classes.link} to={routes.signup.url}>
+                <HeaderLink className={classes.link} to={routes.signup.url}>
                     Sign up
-                </CommonLink>
-                <CommonLink className={classes.link} to={routes.login.url}>
+                </HeaderLink>
+                <HeaderLink className={classes.link} to={routes.login.url}>
                     Login
-                </CommonLink>
+                </HeaderLink>
             </div>
         </AppBar>
     )
