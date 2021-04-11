@@ -60,8 +60,8 @@ const HeaderPure = (props) => {
                 <HeaderLink className={classes.link} to={routes.signup.url}>
                     Sign up
                 </HeaderLink>
-                <HeaderLink className={classes.link} to={routes.login.url}>
-                    Login
+                <HeaderLink className={classes.link} to={routes.signin.url}>
+                    Sign in
                 </HeaderLink>
             </div>
         </AppBar>

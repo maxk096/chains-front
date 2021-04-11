@@ -25,6 +25,11 @@ export class AuthFacade {
         return await this.promisifyFirebaseAuth(promise)
     }
 
+    signInWithEmailAndPassword = async (email, password) => {
+        const promise = this.auth.signInWithEmailAndPassword(email, password)
+        return await this.promisifyFirebaseAuth(promise)
+    }
+
     googleSignInWithPopup = async () => {
         const promise = this.auth.signInWithPopup(this.googleProvider)
         return await this.promisifyFirebaseAuth(promise)

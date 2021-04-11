@@ -8,6 +8,6 @@ class Route {
 export const routes = {
     homepage: new Route({ url: '/' }),
     signup: new Route({ url: '/signup' }),
-    login: new Route({ url: '/login' }),
+    signin: new Route({ url: '/signin' }),
     notFound: new Route({ url: '*' })
 }
