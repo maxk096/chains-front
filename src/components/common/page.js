@@ -9,7 +9,7 @@ const styles = (theme) => {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            color: theme.textPrimary
+            color: theme.palette.primary.main
         }
     })
 }

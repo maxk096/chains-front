@@ -70,7 +70,6 @@ export const lightTheme = createMuiTheme({
     light: '#fff',
     logoTitle: '#ff9000',
     logoTitleReversed: '#fff',
-    textPrimary: '#465566',
     textSecondary: '#7b8692',
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
