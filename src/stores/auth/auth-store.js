@@ -96,7 +96,7 @@ export class AuthStore extends LoadingStore {
     *handleOnGoogleSignIn() {
         try {
             this.clearErrorState()
-            yield this.authFacade.googleSignInWithPopup()
+            yield this.authFacade.googleSignInWithRedirect()
         } catch (ex) {}
     }
 }

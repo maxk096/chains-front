@@ -30,8 +30,8 @@ export class AuthFacade {
         return await this.promisifyFirebaseAuth(promise)
     }
 
-    googleSignInWithPopup = async () => {
-        const promise = this.auth.signInWithPopup(this.googleProvider)
+    googleSignInWithRedirect = async () => {
+        const promise = this.auth.signInWithRedirect(this.googleProvider)
         return await this.promisifyFirebaseAuth(promise)
     }
 }
