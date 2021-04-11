@@ -1,6 +1,7 @@
 import { AppBar, createStyles, withStyles } from '@material-ui/core'
 import classNames from 'classnames'
 import { flowRight } from 'lodash'
+import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { routes } from '../../stores/routing/routes'
 import { HeaderLink } from './header-link'
@@ -44,7 +45,40 @@ const styles = (theme) => {
 }
 
 const HeaderPure = (props) => {
-    const { isTransparent, classes } = props
+    const { isTransparent, classes, userStore } = props
+    const { user, onSignOut } = userStore
+
+    const onSingOutClick = (ev) => {
+        ev.preventDefault()
+        onSignOut()
+    }
+
+    const renderLinks = () => {
+        if (user) {
+            return (
+                <>
+                    <HeaderLink className={classes.link} to={routes.habits.url}>
+                        Habits
+                    </HeaderLink>
+                    <HeaderLink className={classes.link} to={'#'} onClick={onSingOutClick}>
+                        Sign out
+                    </HeaderLink>
+                </>
+            )
+        }
+
+        return (
+            <>
+                <HeaderLink className={classes.link} to={routes.signup.url}>
+                    Sign up
+                </HeaderLink>
+                <HeaderLink className={classes.link} to={routes.signin.url}>
+                    Sign in
+                </HeaderLink>
+            </>
+        )
+    }
+
     return (
         <AppBar
             className={classNames({
@@ -56,18 +90,11 @@ const HeaderPure = (props) => {
             <HeaderLink className={classes.logoLink} to={routes.homepage.url}>
                 <Logo reversed />
             </HeaderLink>
-            <div className={classes.links}>
-                <HeaderLink className={classes.link} to={routes.signup.url}>
-                    Sign up
-                </HeaderLink>
-                <HeaderLink className={classes.link} to={routes.signin.url}>
-                    Sign in
-                </HeaderLink>
-            </div>
+            <div className={classes.links}>{renderLinks()}</div>
         </AppBar>
     )
 }
 
-const Header = flowRight(withStyles(styles))(HeaderPure)
+const Header = flowRight(withStyles(styles), inject('userStore'), observer)(HeaderPure)
 
 export { Header }

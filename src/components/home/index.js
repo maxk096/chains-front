@@ -1,5 +1,6 @@
 import { createStyles, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
+import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { routes } from '../../stores/routing/routes'
@@ -131,9 +132,28 @@ const styles = (theme) => {
 }
 
 const HomePure = (props) => {
-    const { classes, history } = props
-    const onStaClick = () => {
+    const { classes, history, userStore } = props
+    const { user } = userStore
+    const onCreateAccountClick = () => {
         history.push(routes.signup.url)
+    }
+    const onOpenHabitsClick = () => {
+        history.push(routes.habits.url)
+    }
+
+    const renderCta = () => {
+        if (user) {
+            return (
+                <CommonButton onClick={onOpenHabitsClick} className={classes.ctaButton}>
+                    Open my habits
+                </CommonButton>
+            )
+        }
+        return (
+            <CommonButton onClick={onCreateAccountClick} className={classes.ctaButton}>
+                Create account
+            </CommonButton>
+        )
     }
 
     return (
@@ -161,9 +181,7 @@ const HomePure = (props) => {
                             Permanently.
                         </h1>
                         <p>Build good habits that will change your life.</p>
-                        <CommonButton onClick={onStaClick} className={classes.ctaButton}>
-                            Create account
-                        </CommonButton>
+                        {renderCta()}
                     </div>
                 </div>
             </div>
@@ -171,6 +189,6 @@ const HomePure = (props) => {
     )
 }
 
-const Home = flowRight(withStyles(styles), withRouter)(HomePure)
+const Home = flowRight(withStyles(styles), withRouter, inject('userStore'), observer)(HomePure)
 
 export { Home }

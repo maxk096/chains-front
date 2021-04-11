@@ -1,22 +1,36 @@
-import { makeObservable, observable } from 'mobx'
-import { getFirebaseApp } from '../../firebase'
+import { action, flow, makeObservable, observable } from 'mobx'
 
 export class UserStore {
     user = null
+    isInitialized = false
 
-    constructor() {
+    constructor(props) {
         makeObservable(this, {
-            user: observable
+            user: observable,
+            isInitialized: observable,
+            onAuthStateChanged: action,
+            handleSignOut: flow
         })
-
-        this.onAuthStateChangedUnsub = getFirebaseApp().auth().onAuthStateChanged(this.onAuthStateChanged)
+        this.authFacade = props.authFacade
+        this.onAuthStateChangedUnsub = this.authFacade.onAuthStateChanged(this.onAuthStateChanged)
     }
 
     onAuthStateChanged = (user) => {
+        this.isInitialized = true
         this.user = user
     }
 
     cleanUp = () => {
         this.onAuthStateChangedUnsub()
+    }
+
+    onSignOut = async () => {
+        await this.handleSignOut()
+    };
+
+    *handleSignOut() {
+        try {
+            yield this.authFacade.signOut()
+        } catch (ex) {}
     }
 }

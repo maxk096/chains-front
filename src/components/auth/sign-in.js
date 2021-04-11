@@ -15,12 +15,13 @@ import { routes } from '../../stores/routing/routes'
 import { authStyles } from './styles'
 import { AuthStore } from '../../stores/auth/auth-store'
 import { SignInMethods } from './sing-in-methods'
+import { withRouter } from 'react-router-dom'
 
 class SignInPure extends React.Component {
     constructor(p) {
         super(p)
-        const { authFacade } = this.props
-        this.authStore = new AuthStore({ authFacade })
+        const { authFacade, history } = this.props
+        this.authStore = new AuthStore({ authFacade, history })
     }
 
     Form = observer(() => {
@@ -31,12 +32,7 @@ class SignInPure extends React.Component {
                 <InputField name='email' placeholder='Email' />
                 <InputField name='pass' type='password' placeholder='Password' />
                 <CommonErrorMessage>{getErrorState()}</CommonErrorMessage>
-                <LoadingButton
-                    pending={isLoading}
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                >
+                <LoadingButton pending={isLoading} variant='contained' color='primary' type='submit'>
                     Sign In
                 </LoadingButton>
                 <Typography className={classes.infoWrap} variant='body2'>
@@ -71,6 +67,6 @@ class SignInPure extends React.Component {
         )
     }
 }
-const SignIn = flowRight(withStyles(authStyles), inject('authFacade'), observer)(SignInPure)
+const SignIn = flowRight(withStyles(authStyles), withRouter, inject('authFacade'), observer)(SignInPure)
 
 export { SignIn }

@@ -13,7 +13,7 @@ export class AuthFacade {
             return { [rejectionKey]: true, error }
         })
 
-        if (valueOrError[rejectionKey]) {
+        if (typeof valueOrError !== 'undefined' && valueOrError[rejectionKey]) {
             throw valueOrError.error
         } else {
             return valueOrError
@@ -32,6 +32,15 @@ export class AuthFacade {
 
     googleSignInWithRedirect = async () => {
         const promise = this.auth.signInWithRedirect(this.googleProvider)
+        return await this.promisifyFirebaseAuth(promise)
+    }
+
+    onAuthStateChanged = (fn) => {
+        return this.auth.onAuthStateChanged(fn)
+    }
+
+    signOut = async () => {
+        const promise = this.auth.signOut()
         return await this.promisifyFirebaseAuth(promise)
     }
 }

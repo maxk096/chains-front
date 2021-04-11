@@ -15,12 +15,13 @@ import { CommonLink } from '../common/link'
 import { routes } from '../../stores/routing/routes'
 import { authStyles } from './styles'
 import { SignInMethods } from './sing-in-methods'
+import { withRouter } from 'react-router-dom'
 
 class SignUpPure extends React.Component {
     constructor(p) {
         super(p)
-        const { authFacade } = this.props
-        this.authStore = new AuthStore({ authFacade })
+        const { authFacade, history } = this.props
+        this.authStore = new AuthStore({ authFacade, history })
     }
 
     Form = observer(() => {
@@ -32,12 +33,7 @@ class SignUpPure extends React.Component {
                 <InputField name='pass1' type='password' placeholder='Password' />
                 <InputField name='pass2' type='password' placeholder='Confirm password' />
                 <CommonErrorMessage>{getErrorState()}</CommonErrorMessage>
-                <LoadingButton
-                    pending={isLoading}
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                >
+                <LoadingButton pending={isLoading} variant='contained' color='primary' type='submit'>
                     Sign up
                 </LoadingButton>
                 <Typography className={classes.infoWrap} variant='body2'>
@@ -72,6 +68,6 @@ class SignUpPure extends React.Component {
         )
     }
 }
-const SignUp = flowRight(withStyles(authStyles), inject('authFacade'), observer)(SignUpPure)
+const SignUp = flowRight(withStyles(authStyles), withRouter, inject('authFacade'), observer)(SignUpPure)
 
 export { SignUp }

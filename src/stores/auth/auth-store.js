@@ -1,11 +1,13 @@
 import { computed, flow, makeObservable } from 'mobx'
 import * as yup from 'yup'
 import { LoadingStore } from '../loading/loading-store'
+import { routes } from '../routing/routes'
 
 export class AuthStore extends LoadingStore {
     constructor(props) {
         super()
         this.authFacade = props.authFacade
+        this.history = props.history
         makeObservable(this, {
             handleOnSingUpSubmit: flow,
             signUpValidationSchema: computed,
@@ -48,6 +50,7 @@ export class AuthStore extends LoadingStore {
             this.startLoading()
             const { email, pass1 } = values
             yield this.authFacade.createUserWithEmailAndPassword(email, pass1)
+            this.onSuccessfulSignIn()
         } catch (ex) {
             this.setErrorState(ex.message)
         } finally {
@@ -81,6 +84,7 @@ export class AuthStore extends LoadingStore {
             this.startLoading()
             const { email, pass } = values
             yield this.authFacade.signInWithEmailAndPassword(email, pass)
+            this.onSuccessfulSignIn()
         } catch (ex) {
             this.setErrorState(ex.message)
         } finally {
@@ -97,6 +101,11 @@ export class AuthStore extends LoadingStore {
         try {
             this.clearErrorState()
             yield this.authFacade.googleSignInWithRedirect()
+            this.onSuccessfulSignIn()
         } catch (ex) {}
+    }
+
+    onSuccessfulSignIn = () => {
+        this.history.push(routes.habits.url)
     }
 }
