@@ -11,14 +11,14 @@ const styles = (theme) => {
             backgroundImage: `url("${theme.logoOrange}")`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
-            width: 35,
-            height: 35
+            width: 28,
+            height: 28
         },
         logoImgReversed: {
             backgroundImage: `url("${theme.logoLight}")`,
         },
         logoTitle: {
-            marginLeft: 15,
+            marginLeft: 12,
             fontSize: '1.2em',
             color: theme.logoTitle
         },

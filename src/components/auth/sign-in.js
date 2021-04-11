@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Typography, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
-import { Header } from '../common/header'
+import { Header } from '../common/header/header'
 import { Page } from '../common/page'
 import { Logo } from '../common/logo'
 import { Formik } from 'formik'

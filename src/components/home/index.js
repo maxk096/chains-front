@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { routes } from '../../stores/routing/routes'
 import { getCommonStyles } from '../common-styles'
 import { CommonButton } from '../common/button'
-import { Header } from '../common/header'
+import { Header } from '../common/header/header'
 import { Page } from '../common/page'
 
 const styles = (theme) => {
@@ -127,6 +127,12 @@ const styles = (theme) => {
             '&:hover': {
                 backgroundColor: theme.home.ctaActiveBg
             }
+        },
+        headerLink: {
+            margin: '10px 20px'
+        },
+        headerRoot: {
+            height: 60
         }
     })
 }
@@ -145,7 +151,7 @@ const HomePure = (props) => {
         if (user) {
             return (
                 <CommonButton onClick={onOpenHabitsClick} className={classes.ctaButton}>
-                    Open my habits
+                    My habits
                 </CommonButton>
             )
         }
@@ -169,7 +175,7 @@ const HomePure = (props) => {
                 </div>
             </div>
             <div className={classes.content}>
-                <Header isTransparent />
+                <Header isTransparent classes={{ root: classes.headerRoot, link: classes.headerLink }} />
                 <div className={classes.block}>
                     <div className={classes.landingChart}></div>
                     <div className={classes.text}>

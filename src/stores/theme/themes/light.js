@@ -6,10 +6,15 @@ export const lightTheme = createMuiTheme({
     fontFamilyMain: 'Roboto',
     palette: {
         primary: {
-            main: '#465566'
+            main: '#465566',
+            dark: 'rgb(49, 59, 71)'
         },
         error: {
             main: '#ff5050'
+        },
+        background: {
+            default: '#fafafa',
+            dark: '#ededed'
         }
     },
     bg: {
@@ -53,6 +58,11 @@ export const lightTheme = createMuiTheme({
             colorPrimary: {
                 color: 'inherit'
             }
+        },
+        MuiMenuItem: {
+            root: {
+                fontSize: '0.875rem'
+            }
         }
     },
     link: {
@@ -65,7 +75,15 @@ export const lightTheme = createMuiTheme({
             textActive: '#fff',
             bg: 'transparent',
             activeBg: 'hsla(0,0%,100%,.2)'
+        },
+        menu: {
+            iconColor: '#fff'
         }
+    },
+    menu: {
+        color: '#3a7adb',
+        activeColor: '#4c94ff',
+        activeItemBg: ''
     },
     light: '#fff',
     logoTitle: '#ff9000',

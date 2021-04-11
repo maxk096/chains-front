@@ -3,9 +3,10 @@ import classNames from 'classnames'
 import { flowRight } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
-import { routes } from '../../stores/routing/routes'
-import { HeaderLink } from './header-link'
-import { Logo } from './logo'
+import { routes } from '../../../stores/routing/routes'
+import { HeaderLink } from '../header-link'
+import { Logo } from '../logo'
+import { UserMenu } from './user-menu'
 
 const styles = (theme) => {
     return createStyles({
@@ -15,9 +16,9 @@ const styles = (theme) => {
             alignItems: 'center',
             flexDirection: 'row',
             padding: '0 50px',
-            minHeight: 50,
+            height: 44,
             [theme.breakpoints.down('sm')]: {
-                padding: '0 5px'
+                padding: '0 8px'
             }
         },
         transparent: {
@@ -29,10 +30,10 @@ const styles = (theme) => {
         },
         link: {
             color: theme.headerLink,
-            margin: '10px 20px',
-            padding: '10px 20px',
+            margin: '0 20px',
+            padding: '5px 10px',
             [theme.breakpoints.down('sm')]: {
-                margin: '0 5px'
+                margin: '0 5px !important'
             }
         },
         logoLink: {
@@ -46,25 +47,11 @@ const styles = (theme) => {
 
 const HeaderPure = (props) => {
     const { isTransparent, classes, userStore } = props
-    const { user, onSignOut } = userStore
-
-    const onSingOutClick = (ev) => {
-        ev.preventDefault()
-        onSignOut()
-    }
+    const { user } = userStore
 
     const renderLinks = () => {
         if (user) {
-            return (
-                <>
-                    <HeaderLink className={classes.link} to={routes.habits.url}>
-                        Habits
-                    </HeaderLink>
-                    <HeaderLink className={classes.link} to={'#'} onClick={onSingOutClick}>
-                        Sign out
-                    </HeaderLink>
-                </>
-            )
+            return <UserMenu />
         }
 
         return (
