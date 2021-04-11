@@ -3,22 +3,7 @@ import { createStyles } from '@material-ui/core'
 export const authStyles = (theme) => {
     return createStyles({
         content: {
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            '&:before, &:after': {
-                content: '""',
-                display: 'block',
-                flexGrow: 1,
-                minHeight: 24
-            },
-            [theme.breakpoints.down('xs')]: {
-                '&:before, &:after': {
-                    display: 'none'
-                }
-            }
+            flex: 1
         },
         card: {
             display: 'flex',

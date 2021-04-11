@@ -16,6 +16,7 @@ import { routes } from '../../stores/routing/routes'
 import { authStyles } from './styles'
 import { SignInMethods } from './sing-in-methods'
 import { withRouter } from 'react-router-dom'
+import { CenteredContent } from '../common/centered-content'
 
 class SignUpPure extends React.Component {
     constructor(p) {
@@ -52,7 +53,7 @@ class SignUpPure extends React.Component {
             <Provider authStore={this.authStore}>
                 <Page>
                     <Header />
-                    <div className={classes.content}>
+                    <CenteredContent className={classes.content}>
                         <Card className={classes.card}>
                             <Logo className={classes.logo} />
                             <Formik
@@ -62,7 +63,7 @@ class SignUpPure extends React.Component {
                                 component={this.Form}
                             />
                         </Card>
-                    </div>
+                    </CenteredContent>
                 </Page>
             </Provider>
         )
