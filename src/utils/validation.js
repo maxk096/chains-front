@@ -1,7 +1,13 @@
 import * as yup from 'yup'
 
-export const initValidationMethods = () => {
-    yup.addMethod(yup.string, 'namedRequired', function (fieldName) {
-        return yup.string().required(`${fieldName} is required.`)
-    })
-}
+yup.addMethod(yup.string, 'namedRequired', function (fieldName) {
+    return this.required(`${fieldName} is required.`)
+})
+
+yup.addMethod(yup.mixed, 'namedRequired', function (fieldName) {
+    return this.required(`${fieldName} is required.`)
+})
+
+yup.addMethod(yup.array, 'namedRequired', function (fieldName) {
+    return this.required(`${fieldName} is required.`)
+})

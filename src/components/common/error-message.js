@@ -1,4 +1,3 @@
-import { connect } from 'formik'
 import React from 'react'
 import { flowRight } from 'lodash'
 import { createStyles, withStyles } from '@material-ui/core'
@@ -22,6 +21,6 @@ const CommonErrorMessagePure = (props) => {
     )
 }
 
-const CommonErrorMessage = flowRight(withStyles(styles), connect)(CommonErrorMessagePure)
+const CommonErrorMessage = flowRight(withStyles(styles))(CommonErrorMessagePure)
 
 export { CommonErrorMessage }

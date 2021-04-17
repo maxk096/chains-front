@@ -1,10 +1,10 @@
 import { Field } from 'formik'
-import { CommonTextField } from '../text-field'
 import React from 'react'
 import { flowRight } from 'lodash'
 import { createStyles, withStyles } from '@material-ui/core'
 import { FormErrorMessage } from './form-error-message'
 import classNames from 'classnames'
+import { CommonTimePicker } from '../time-picker'
 
 const styles = (theme) => {
     return createStyles({
@@ -15,25 +15,21 @@ const styles = (theme) => {
     })
 }
 
-const FormTextFieldPure = (props) => {
+const FormTimePickerPure = (props) => {
     const { name, classes, withErrorMessage, wrapClass, ...inputFieldRest } = props
     return (
         <Field name={name}>
             {({ field, form }) => {
-                // There's a known case when React may call onBlur listener with
-                // an `event` set to `undefined`, Formik is not ready for that.
-                const onBlur = (ev) => {
-                    if (ev) {
-                        field.onBlur?.(ev)
-                    }
+                const onChange = (time) => {
+                    form.setFieldValue(name, time)
                 }
                 return (
                     <div className={classNames(classes.wrap, wrapClass)}>
-                        <CommonTextField
+                        <CommonTimePicker
                             disabled={form.isSubmitting}
                             {...inputFieldRest}
                             {...field}
-                            onBlur={onBlur}
+                            onChange={onChange}
                         />
                         {withErrorMessage && <FormErrorMessage name={name} />}
                     </div>
@@ -42,10 +38,10 @@ const FormTextFieldPure = (props) => {
         </Field>
     )
 }
-FormTextFieldPure.defaultProps = {
+FormTimePickerPure.defaultProps = {
     withErrorMessage: true
 }
 
-const FormTextField = flowRight(withStyles(styles))(FormTextFieldPure)
+const FormTimePicker = flowRight(withStyles(styles))(FormTimePickerPure)
 
-export { FormTextField }
+export { FormTimePicker }

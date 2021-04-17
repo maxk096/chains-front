@@ -6,7 +6,7 @@ export const lightTheme = createMuiTheme({
     fontFamilyMain: 'Roboto',
     palette: {
         primary: {
-            main: '#465566',
+            main: '#353e49',
             dark: 'rgb(49, 59, 71)'
         },
         error: {
@@ -14,7 +14,8 @@ export const lightTheme = createMuiTheme({
         },
         background: {
             default: '#fafafa',
-            dark: '#ededed'
+            dark: '#ededed',
+            darker: 'rgba(0, 0, 0, 0.5)',
         }
     },
     bg: {
@@ -63,6 +64,14 @@ export const lightTheme = createMuiTheme({
             root: {
                 fontSize: '0.875rem'
             }
+        },
+        MuiFab: {
+            root: {
+                color: '#fff'
+            },
+            primary: {
+                backgroundColor: '#ff9000 !important'
+            }
         }
     },
     link: {
@@ -92,6 +101,7 @@ export const lightTheme = createMuiTheme({
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
     loadingButtonPendingColor: '#fff',
+    habitIconColor: '#001fffa6',
     logoLight: img('chains-logo-light.png'),
     logoOrange: img('chains-logo-orange.png')
 })
