@@ -16,7 +16,7 @@ export const authStyles = (theme) => {
             }
         },
         logo: {
-            marginBottom: 30
+            marginBottom: 10
         },
         form: {
             width: '100%'

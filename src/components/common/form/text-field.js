@@ -1,5 +1,5 @@
 import { Field } from 'formik'
-import { CommonInput } from '../input'
+import { CommonTextField } from '../text-field'
 import React from 'react'
 import { flowRight } from 'lodash'
 import { createStyles, withStyles } from '@material-ui/core'
@@ -14,7 +14,7 @@ const styles = (theme) => {
     })
 }
 
-const InputFieldPure = (props) => {
+const FormTextFieldPure = (props) => {
     const { name, classes, ...inputFieldRest } = props
     return (
         <Field name={name}>
@@ -28,7 +28,7 @@ const InputFieldPure = (props) => {
                 }
                 return (
                     <div className={classes.wrap}>
-                        <CommonInput
+                        <CommonTextField
                             disabled={form.isSubmitting}
                             {...inputFieldRest}
                             {...field}
@@ -42,6 +42,6 @@ const InputFieldPure = (props) => {
     )
 }
 
-const InputField = flowRight(withStyles(styles))(InputFieldPure)
+const FormTextField = flowRight(withStyles(styles))(FormTextFieldPure)
 
-export { InputField }
+export { FormTextField }

@@ -5,7 +5,7 @@ import { Header } from '../common/header/header'
 import { Page } from '../common/page'
 import { Logo } from '../common/logo'
 import { Formik } from 'formik'
-import { InputField } from '../common/form/input-field'
+import { FormTextField } from '../common/form/text-field'
 import { inject, observer, Provider } from 'mobx-react'
 import { CommonForm } from '../common/form/form'
 import { CommonErrorMessage } from '../common/error-message'
@@ -30,8 +30,8 @@ class SignInPure extends React.Component {
         const { getErrorState, isLoading } = this.authStore
         return (
             <CommonForm className={classes.form}>
-                <InputField name='email' placeholder='Email' />
-                <InputField name='pass' type='password' placeholder='Password' />
+                <FormTextField name='email' label='Email' />
+                <FormTextField name='pass' type='password' label='Password' />
                 <CommonErrorMessage>{getErrorState()}</CommonErrorMessage>
                 <LoadingButton pending={isLoading} variant='contained' color='primary' type='submit'>
                     Sign In

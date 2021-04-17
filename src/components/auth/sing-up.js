@@ -6,7 +6,7 @@ import { Page } from '../common/page'
 import { Logo } from '../common/logo'
 import { AuthStore } from '../../stores/auth/auth-store'
 import { Formik } from 'formik'
-import { InputField } from '../common/form/input-field'
+import { FormTextField } from '../common/form/text-field'
 import { inject, observer, Provider } from 'mobx-react'
 import { CommonForm } from '../common/form/form'
 import { CommonErrorMessage } from '../common/error-message'
@@ -30,9 +30,9 @@ class SignUpPure extends React.Component {
         const { getErrorState, isLoading } = this.authStore
         return (
             <CommonForm className={classes.form}>
-                <InputField name='email' placeholder='Email' />
-                <InputField name='pass1' type='password' placeholder='Password' />
-                <InputField name='pass2' type='password' placeholder='Confirm password' />
+                <FormTextField name='email' label='Email' />
+                <FormTextField name='pass1' type='password' label='Password' />
+                <FormTextField name='pass2' type='password' label='Confirm password' />
                 <CommonErrorMessage>{getErrorState()}</CommonErrorMessage>
                 <LoadingButton pending={isLoading} variant='contained' color='primary' type='submit'>
                     Sign up
