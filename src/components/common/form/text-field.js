@@ -31,8 +31,8 @@ const FormTextFieldPure = (props) => {
                     <div className={classNames(classes.wrap, wrapClass)}>
                         <CommonTextField
                             disabled={form.isSubmitting}
-                            {...inputFieldRest}
                             {...field}
+                            {...inputFieldRest}
                             onBlur={onBlur}
                         />
                         {withErrorMessage && <FormErrorMessage name={name} />}

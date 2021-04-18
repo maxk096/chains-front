@@ -27,8 +27,8 @@ const FormTimePickerPure = (props) => {
                     <div className={classNames(classes.wrap, wrapClass)}>
                         <CommonTimePicker
                             disabled={form.isSubmitting}
-                            {...inputFieldRest}
                             {...field}
+                            {...inputFieldRest}
                             onChange={onChange}
                             onBlur={undefined}
                         />
