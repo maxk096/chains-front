@@ -5,15 +5,20 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { getIsoWeekdays } from '../../utils/dayjs'
 
 const styles = (theme) => {
-    return createStyles({})
+    return createStyles({
+        root: {
+            display: 'flex',
+            flexWrap: 'wrap'
+        }
+    })
 }
 
 const WeekdayPickerPure = (props) => {
-    const { value, onChange, disabled } = props
+    const { value, onChange, classes, disabled } = props
     const weekdays = useMemo(() => getIsoWeekdays(), [])
 
     return (
-        <ToggleButtonGroup value={value} onChange={onChange}>
+        <ToggleButtonGroup className={classes.root} value={value} onChange={onChange}>
             {weekdays.map((day) => (
                 <ToggleButton disabled={disabled} key={day.number} value={day.number}>
                     {day.name}

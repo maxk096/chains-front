@@ -43,7 +43,8 @@ export const lightTheme = createMuiTheme({
         },
         MuiCard: {
             root: {
-                padding: '20px'
+                padding: '20px',
+                overflow: 'auto'
             }
         },
         MuiButton: {
