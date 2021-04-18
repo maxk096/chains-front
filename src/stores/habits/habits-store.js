@@ -1,7 +1,7 @@
-import { AddNewHabitStore } from './add-new-habit/add-new-habits';
+import { NewHabitModalStore } from './new-habit/new-habit-modal';
 
 export class HabitsStore {
     constructor() {
-        this.addNewHabitStore = new AddNewHabitStore()
+        this.newHabitModalStore = new NewHabitModalStore()
     }
 }

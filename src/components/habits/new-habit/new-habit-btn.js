@@ -4,7 +4,7 @@ import { flowRight } from 'lodash'
 import React, { useState } from 'react'
 import CreateIcon from '@material-ui/icons/Create'
 import { inject, observer } from 'mobx-react'
-import { modalState } from '../../../stores/habits/add-new-habit/utils'
+import { modalState } from '../../../stores/habits/new-habit/utils'
 
 const styles = (theme) => {
     return createStyles({
@@ -36,9 +36,9 @@ const actions = [
 ]
 
 const AddNewHabitBtnPure = (props) => {
-    const { classes, addNewHabitStore } = props
+    const { classes, newHabitModalStore } = props
     const [isOpen, setIsOpen] = useState(false)
-    const { openAddNewHabit } = addNewHabitStore
+    const { openAddNewHabit } = newHabitModalStore
     const openDial = () => setIsOpen(true)
     const closeDial = () => setIsOpen(false)
 
@@ -70,6 +70,10 @@ const AddNewHabitBtnPure = (props) => {
     )
 }
 
-const AddNewHabitBtn = flowRight(withStyles(styles), inject('addNewHabitStore'), observer)(AddNewHabitBtnPure)
+const AddNewHabitBtn = flowRight(
+    withStyles(styles),
+    inject('newHabitModalStore'),
+    observer
+)(AddNewHabitBtnPure)
 
 export { AddNewHabitBtn }

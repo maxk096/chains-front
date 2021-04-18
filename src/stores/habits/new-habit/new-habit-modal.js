@@ -1,6 +1,6 @@
-import { action,  makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 
-export class AddNewHabitStore {
+export class NewHabitModalStore {
     isOpen = false
     state = null
 
