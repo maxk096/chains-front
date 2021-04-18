@@ -30,6 +30,7 @@ const FormTimePickerPure = (props) => {
                             {...inputFieldRest}
                             {...field}
                             onChange={onChange}
+                            onBlur={undefined}
                         />
                         {withErrorMessage && <FormErrorMessage name={name} />}
                     </div>

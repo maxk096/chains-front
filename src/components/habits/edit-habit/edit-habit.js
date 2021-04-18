@@ -34,7 +34,7 @@ class EditHabitPure extends React.Component {
             question: '',
             reason: '',
             executionDays: [],
-            notificationTime: null
+            notificationTime: ''
         }
     }
 

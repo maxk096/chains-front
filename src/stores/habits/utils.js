@@ -16,5 +16,5 @@ export const newHabitValidationSchema = yup.object().shape({
         .array(yup.number())
         .min(1, 'Select at least one execution day.')
         .namedRequired('Execution days'),
-    notificationTime: yup.date()
+    notificationTime: yup.string()
 })
