@@ -53,6 +53,9 @@ const styles = (theme) => {
             '& $labeledField': {
                 flexGrow: 0
             }
+        },
+        submitBtn: {
+            marginTop: 15
         }
     })
 }
@@ -89,14 +92,19 @@ class EditHabitFormPure extends React.Component {
         })
     }
 
+    setFieldValueWithValidation = (field, value) => {
+        const { setFieldValue, validateField, setFieldTouched } = this.props
+        setFieldTouched(field)
+        validateField(field)
+        setFieldValue(field, value)
+    }
+
     onTypeChange = (_, type) => {
-        const { setFieldValue } = this.props
-        setFieldValue('type', type)
+        this.setFieldValueWithValidation('type', type)
     }
 
     onExecutionDaysChange = (_, executionDays) => {
-        const { setFieldValue } = this.props
-        setFieldValue('executionDays', executionDays)
+        this.setFieldValueWithValidation('executionDays', executionDays)
         this.handleExecutionDaysTypeChange(executionDaysTypeValues.CUSTOM.type)
     }
 
@@ -186,7 +194,13 @@ class EditHabitFormPure extends React.Component {
                         wrapClass={classes.labeledField}
                     />
                 </div>
-                <LoadingButton variant='contained' color='primary' type='submit'>
+                <LoadingButton
+                    className={classes.submitBtn}
+                    pending={isSubmitting}
+                    variant='contained'
+                    color='primary'
+                    type='submit'
+                >
                     Save
                 </LoadingButton>
             </CommonForm>
