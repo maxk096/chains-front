@@ -4,7 +4,7 @@ import { flowRight } from 'lodash'
 import React, { useState } from 'react'
 import CreateIcon from '@material-ui/icons/Create'
 import { inject, observer } from 'mobx-react'
-import { modalState } from '../../../stores/habits/new-habit/utils'
+import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
 
 const styles = (theme) => {
     return createStyles({
@@ -29,18 +29,27 @@ const styles = (theme) => {
 
 const actions = [
     {
-        key: modalState.ADD_NEW_HABIT,
+        key: modalState.NEW_HABIT,
         icon: <CreateIcon />,
         name: 'New habit'
     }
 ]
 
-const AddNewHabitBtnPure = (props) => {
+const NewHabitBtnPure = (props) => {
     const { classes, newHabitModalStore } = props
     const [isOpen, setIsOpen] = useState(false)
-    const { openAddNewHabit } = newHabitModalStore
+    const { openNewHabitModal } = newHabitModalStore
     const openDial = () => setIsOpen(true)
     const closeDial = () => setIsOpen(false)
+
+    const onDialActionClick = (key) => () => {
+        openNewHabitModal(key)
+        closeDial()
+    }
+
+    if (newHabitModalStore.isOpen) {
+        return null
+    }
 
     return (
         <>
@@ -62,7 +71,7 @@ const AddNewHabitBtnPure = (props) => {
                         icon={action.icon}
                         tooltipTitle={action.name}
                         tooltipOpen
-                        onClick={() => openAddNewHabit(action.key)}
+                        onClick={onDialActionClick(action.key)}
                     />
                 ))}
             </SpeedDial>
@@ -70,10 +79,6 @@ const AddNewHabitBtnPure = (props) => {
     )
 }
 
-const AddNewHabitBtn = flowRight(
-    withStyles(styles),
-    inject('newHabitModalStore'),
-    observer
-)(AddNewHabitBtnPure)
+const NewHabitBtn = flowRight(withStyles(styles), inject('newHabitModalStore'), observer)(NewHabitBtnPure)
 
-export { AddNewHabitBtn }
+export { NewHabitBtn }

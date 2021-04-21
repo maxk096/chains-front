@@ -3,10 +3,10 @@ import { flowRight } from 'lodash'
 import React from 'react'
 import { Header } from '../common/header/header'
 import { Page } from '../common/page'
-import { AddNewHabitBtn } from './new-habit/new-habit-btn'
+import { NewHabitBtn } from './new-habit/new-habit-btn'
 import { observer, Provider } from 'mobx-react'
 import { HabitsStore } from '../../stores/habits/habits-store'
-import { AddNewHabitModal } from './new-habit/new-habit-modal'
+import { NewHabitModal } from './new-habit/new-habit-modal'
 
 const styles = (theme) => {
     return createStyles({
@@ -30,8 +30,8 @@ class HabitsPagePure extends React.Component {
             <Provider newHabitModalStore={newHabitModalStore}>
                 <Page className={classes.root}>
                     <Header />
-                    <AddNewHabitBtn />
-                    <AddNewHabitModal />
+                    <NewHabitBtn />
+                    <NewHabitModal />
                 </Page>
             </Provider>
         )

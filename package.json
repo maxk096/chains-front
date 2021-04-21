@@ -53,6 +53,7 @@
     "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",
     "mobx-react-router": "^4.1.0",
+    "notistack": "^1.0.6",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.2.1",

@@ -9,6 +9,10 @@ export const lightTheme = createMuiTheme({
             main: '#353e49',
             dark: 'rgb(49, 59, 71)'
         },
+        secondary: {
+            main: '#efeeef',
+            dark: 'rgb(207, 202, 207)'
+        },
         error: {
             main: '#ff5050'
         },

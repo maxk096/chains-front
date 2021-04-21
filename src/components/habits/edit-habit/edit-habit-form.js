@@ -16,6 +16,8 @@ import Select from '@material-ui/core/Select'
 import { action, makeObservable, observable } from 'mobx'
 import classNames from 'classnames'
 import { FormTimePicker } from '../../common/form/form-time-picker'
+import { CommonErrorMessage } from '../../common/error-message'
+import { CommonButton } from '../../common/button'
 
 const styles = (theme) => {
     return createStyles({
@@ -54,8 +56,14 @@ const styles = (theme) => {
                 flexGrow: 0
             }
         },
-        submitBtn: {
+        contolBtns: {
+            display: 'grid',
+            columnGap: 20,
+            gridTemplateColumns: '1fr 1fr',
             marginTop: 15
+        },
+        controlBtn: {
+            flex: 1
         }
     })
 }
@@ -123,7 +131,7 @@ class EditHabitFormPure extends React.Component {
     }
 
     render() {
-        const { classes, values, isSubmitting } = this.props
+        const { classes, values, isSubmitting, formError, onCancelClick } = this.props
         const { type, icon, executionDays } = values
 
         return (
@@ -194,15 +202,27 @@ class EditHabitFormPure extends React.Component {
                         wrapClass={classes.labeledField}
                     />
                 </div>
-                <LoadingButton
-                    className={classes.submitBtn}
-                    pending={isSubmitting}
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                >
-                    Save
-                </LoadingButton>
+                <CommonErrorMessage>{formError}</CommonErrorMessage>
+                <div className={classes.contolBtns}>
+                    <CommonButton
+                        variant='contained'
+                        color='secondary'
+                        disabled={isSubmitting}
+                        onClick={onCancelClick}
+                        className={classes.controlBtn}
+                    >
+                        Cancel
+                    </CommonButton>
+                    <LoadingButton
+                        pending={isSubmitting}
+                        variant='contained'
+                        color='primary'
+                        type='submit'
+                        className={classes.controlBtn}
+                    >
+                        Save
+                    </LoadingButton>
+                </div>
             </CommonForm>
         )
     }

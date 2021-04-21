@@ -1,31 +1,32 @@
-import { createStyles, Modal, withStyles } from '@material-ui/core'
+import { createStyles, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { modalState } from '../../../stores/habits/new-habit/utils'
-import { EditHabit } from '../edit-habit/edit-habit'
+import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
+import { AddNewHabitModal } from './add-new-habit-modal'
 
 const styles = (theme) => {
     return createStyles({})
 }
 
-class AddNewHabitModalPure extends React.Component {
+class NewHabitModalPure extends React.Component {
     render() {
         const { newHabitModalStore } = this.props
         const { isOpen, state } = newHabitModalStore
 
-        return (
-            <Modal open={isOpen}>
-                <>{modalState.ADD_NEW_HABIT === state && <EditHabit />}</>
-            </Modal>
-        )
+        if (!isOpen) {
+            return null
+        }
+
+        switch (state) {
+            case modalState.NEW_HABIT:
+                return <AddNewHabitModal />
+            default:
+                return null
+        }
     }
 }
 
-const AddNewHabitModal = flowRight(
-    withStyles(styles),
-    inject('newHabitModalStore'),
-    observer
-)(AddNewHabitModalPure)
+const NewHabitModal = flowRight(withStyles(styles), inject('newHabitModalStore'), observer)(NewHabitModalPure)
 
-export { AddNewHabitModal }
+export { NewHabitModal }

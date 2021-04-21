@@ -8,6 +8,10 @@ import { ThemeProvider } from '@material-ui/core'
 import { UserStore } from '../../stores/user/uset-store'
 import { AuthFacade } from '../../firebase/auth-facade'
 import { flowRight } from 'lodash'
+import { HabitsTransport } from '../../firebase/habits-transport'
+import { UiStore } from '../../stores/ui/ui-store'
+import { AppSnackbarProvider } from '../common/snackbar/snackbar-provider'
+import { RegisterSnackbar } from '../common/snackbar/register-snackbar'
 
 class AppPure extends React.Component {
     constructor(p) {
@@ -15,10 +19,17 @@ class AppPure extends React.Component {
         const themeStore = new ThemeStore()
         const authFacade = new AuthFacade()
         const userStore = new UserStore({ authFacade })
+        const uiStore = new UiStore()
         this.globalStores = {
             themeStore,
             userStore,
-            authFacade
+            authFacade,
+            uiStore
+        }
+
+        const habitsTransport = new HabitsTransport({ userStore })
+        this.globalTransport = {
+            habitsTransport
         }
     }
 
@@ -27,16 +38,22 @@ class AppPure extends React.Component {
     }
 
     render() {
-        if (!this.globalStores.userStore.isInitialized) {
+        const { userStore, themeStore } = this.globalStores
+
+        if (!userStore.isInitialized) {
             return null
         }
 
         return (
-            <Provider {...this.globalStores}>
+            <Provider {...this.globalStores} transport={this.globalTransport}>
                 <BrowserRouter>
-                    <ThemeProvider theme={this.globalStores.themeStore.theme}>
-                        <CommonCssBaseline />
-                        <GlobalRouter />
+                    <ThemeProvider theme={themeStore.theme}>
+                        <AppSnackbarProvider>
+                            <RegisterSnackbar>
+                                <CommonCssBaseline />
+                                <GlobalRouter />
+                            </RegisterSnackbar>
+                        </AppSnackbarProvider>
                     </ThemeProvider>
                 </BrowserRouter>
             </Provider>

@@ -6,7 +6,7 @@ export const habitType = {
     BREAK: 'BREAK'
 }
 
-export const newHabitValidationSchema = yup.object().shape({
+export const habitValidationSchema = yup.object().shape({
     type: yup.mixed().oneOf(Object.values(habitType), 'Type is required.').namedRequired('Type'),
     icon: yup.mixed().oneOf(Object.keys(habitIcon)),
     name: yup.string().namedRequired('Name'),
@@ -18,3 +18,15 @@ export const newHabitValidationSchema = yup.object().shape({
         .namedRequired('Execution days'),
     notificationTime: yup.string()
 })
+
+export const getDefaultHabit = () => {
+    return {
+        name: '',
+        type: null,
+        icon: '',
+        question: '',
+        reason: '',
+        executionDays: [],
+        notificationTime: ''
+    }
+}
