@@ -26,8 +26,8 @@ export class LoadingStore {
         return !!this.loadingSet.size
     }
 
-    getLoadingState = (key = LoadingStore.DEFAULT_LOADING_KEY) => {
-        return this.loadingSet.get(key)
+    hasLoadingState = (key = LoadingStore.DEFAULT_LOADING_KEY) => {
+        return this.loadingSet.has(key)
     }
 
     startLoading = () => {
