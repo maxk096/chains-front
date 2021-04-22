@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import { getFirebaseApp } from '.'
+import { promisifyFirebaseAuth } from './utils'
 
 export class AuthFacade {
     constructor() {
@@ -7,32 +8,19 @@ export class AuthFacade {
         this.googleProvider = new firebase.auth.GoogleAuthProvider()
     }
 
-    promisifyFirebaseAuth = async (authPromise) => {
-        const rejectionKey = Symbol()
-        const valueOrError = await authPromise.catch((error) => {
-            return { [rejectionKey]: true, error }
-        })
-
-        if (typeof valueOrError !== 'undefined' && valueOrError[rejectionKey]) {
-            throw valueOrError.error
-        } else {
-            return valueOrError
-        }
-    }
-
     createUserWithEmailAndPassword = async (email, password) => {
         const promise = this.auth.createUserWithEmailAndPassword(email, password)
-        return await this.promisifyFirebaseAuth(promise)
+        return await promisifyFirebaseAuth(promise)
     }
 
     signInWithEmailAndPassword = async (email, password) => {
         const promise = this.auth.signInWithEmailAndPassword(email, password)
-        return await this.promisifyFirebaseAuth(promise)
+        return await promisifyFirebaseAuth(promise)
     }
 
     googleSignInWithRedirect = async () => {
         const promise = this.auth.signInWithRedirect(this.googleProvider)
-        return await this.promisifyFirebaseAuth(promise)
+        return await promisifyFirebaseAuth(promise)
     }
 
     onAuthStateChanged = (fn) => {
@@ -41,6 +29,6 @@ export class AuthFacade {
 
     signOut = async () => {
         const promise = this.auth.signOut()
-        return await this.promisifyFirebaseAuth(promise)
+        return await promisifyFirebaseAuth(promise)
     }
 }

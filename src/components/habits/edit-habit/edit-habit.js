@@ -6,23 +6,11 @@ import { CenteredContent } from '../../common/centered-content'
 import { Formik } from 'formik'
 import { habitValidationSchema } from '../../../stores/habits/utils'
 import { EditHabitForm } from './edit-habit-form'
+import { modalStyles } from '../styles'
 
 const styles = (theme) => {
     return createStyles({
-        root: {
-            height: '100%'
-        },
-        card: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            minWidth: 400,
-            flexGrow: 1,
-            [theme.breakpoints.down('xs')]: {
-                width: '100%',
-                minWidth: 'initial'
-            }
-        }
+        ...modalStyles(theme)
     })
 }
 
@@ -36,7 +24,7 @@ class EditHabitPure extends React.Component {
         const { classes, onSubmit, getInitialValues } = this.props
 
         return (
-            <CenteredContent className={classes.root}>
+            <CenteredContent className={classes.content}>
                 <Card className={classes.card}>
                     <Formik
                         initialValues={getInitialValues()}

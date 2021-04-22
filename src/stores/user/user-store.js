@@ -1,4 +1,5 @@
 import { action, flow, makeObservable, observable } from 'mobx'
+import { promisifyFirebaseAuth } from '../../firebase/utils'
 
 export class UserStore {
     user = null
@@ -32,5 +33,9 @@ export class UserStore {
         try {
             yield this.authFacade.signOut()
         } catch (ex) {}
+    }
+
+    getUserIdToken = async () => {
+        return await promisifyFirebaseAuth(this.user.getIdToken())
     }
 }
