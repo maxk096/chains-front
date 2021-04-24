@@ -16,7 +16,9 @@ const styles = (theme) => {
             outline: 'none'
         },
         cardModifier: {
-            alignItems: 'initial'
+            alignItems: 'initial',
+            wordBreak: 'break-word',
+            width: 400
         },
         info: {
             marginBottom: 20
@@ -36,8 +38,10 @@ class DecodedHabitsPure extends React.Component {
             onHabitSelectChange,
             isHabitSelected,
             onCreateSelectedHabits,
-            onHabitCreationFinish
+            onHabitCreationFinish,
+            selectedHabits
         } = newHabitFromPhotoStore
+        const hasSelectedHabits = !!selectedHabits.size
         return (
             <CenteredContent className={classes.content}>
                 <Card className={classNames(classes.card, classes.cardModifier)}>
@@ -61,7 +65,12 @@ class DecodedHabitsPure extends React.Component {
                         <CommonButton onClick={onCancelHabitsList} variant='contained' color='secondary'>
                             Cancel
                         </CommonButton>
-                        <CommonButton onClick={onCreateSelectedHabits} variant='contained' color='primary'>
+                        <CommonButton
+                            disabled={!hasSelectedHabits}
+                            onClick={onCreateSelectedHabits}
+                            variant='contained'
+                            color='primary'
+                        >
                             Create
                         </CommonButton>
                         <CommonButton onClick={onHabitCreationFinish} variant='contained' color='primary'>

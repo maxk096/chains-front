@@ -12,7 +12,7 @@ export const modalStyles = (theme, { controls = 2 } = {}) => {
             minWidth: 400,
             flexGrow: 1,
             [theme.breakpoints.down('xs')]: {
-                width: '100%',
+                width: '100% !important',
                 minWidth: 'initial'
             }
         },
