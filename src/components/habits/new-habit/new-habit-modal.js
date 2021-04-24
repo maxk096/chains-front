@@ -3,8 +3,8 @@ import { flowRight } from 'lodash'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
-import { AddNewHabitModal } from './add-new-habit'
-import { AddNewHabitFromPhotoModal } from './add-new-habit-from-photo'
+import { AddNewHabitModal } from './new-habit/add-new-habit'
+import { AddNewHabitFromPhotoModal } from './from-photo/add-new-habit-from-photo'
 
 const styles = (theme) => {
     return createStyles({})

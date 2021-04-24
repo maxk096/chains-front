@@ -2,8 +2,8 @@ import { createStyles, Modal, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { EditHabit } from '../edit-habit/edit-habit'
-import { NewHabitStore } from '../../../stores/habits/new-habit/new-habit'
+import { EditHabit } from '../../edit-habit/edit-habit'
+import { NewHabitStore } from '../../../../stores/habits/new-habit/new-habit'
 
 const styles = (theme) => {
     return createStyles({

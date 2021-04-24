@@ -2,12 +2,12 @@ import { createStyles, Modal, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { inject, observer, Provider } from 'mobx-react'
-import { NewHabitFromPhotoStore } from '../../../stores/habits/new-habit/new-habit-from-photo'
-import { modalState } from '../../../stores/habits/new-habit/new-habit-from-photo'
-import { modalStyles } from '../styles'
+import { NewHabitFromPhotoStore } from '../../../../stores/habits/new-habit/new-habit-from-photo'
+import { modalState } from '../../../../stores/habits/new-habit/new-habit-from-photo'
+import { modalStyles } from '../../styles'
 import { UploadPhoto } from './upload-photo'
 import { DecodedHabits } from './decoded-habits'
-import { EditHabit } from '../edit-habit/edit-habit'
+import { EditHabit } from '../../edit-habit/edit-habit'
 
 const styles = (theme) => {
     return createStyles({

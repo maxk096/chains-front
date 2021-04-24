@@ -2,11 +2,11 @@ import { Card, createStyles, FormControlLabel, FormGroup, withStyles } from '@ma
 import { flowRight } from 'lodash'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { modalStyles } from '../styles'
-import { CenteredContent } from '../../common/centered-content'
-import { CommonButton } from '../../common/button'
+import { modalStyles } from '../../styles'
+import { CenteredContent } from '../../../common/centered-content'
+import { CommonButton } from '../../../common/button'
 import classNames from 'classnames'
-import { CommonCheckbox } from '../../common/checkbox'
+import { CommonCheckbox } from '../../../common/checkbox'
 
 const styles = (theme) => {
     return createStyles({
