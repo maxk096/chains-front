@@ -96,8 +96,12 @@ export const lightTheme = createMuiTheme({
     },
     menu: {
         color: '#3a7adb',
-        activeColor: '#4c94ff',
-        activeItemBg: ''
+        activeColor: '#4c94ff'
+    },
+    habit: {
+        iconColor: '#001fffa6',
+        buildType: '#4fb54f',
+        breakType: '#ff7272'
     },
     light: '#fff',
     logoTitle: '#ff9000',
@@ -106,7 +110,7 @@ export const lightTheme = createMuiTheme({
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
     loadingButtonPendingColor: '#fff',
-    habitIconColor: '#001fffa6',
+    loaderProgressColor: '#ff9000',
     logoLight: img('chains-logo-light.png'),
     logoOrange: img('chains-logo-orange.png')
 })

@@ -4,16 +4,13 @@ import React, { useState } from 'react'
 import SelectAllIcon from '@material-ui/icons/SelectAll'
 import Popover from '@material-ui/core/Popover'
 import classNames from 'classnames'
+import { habitCommonStyles } from '../common-styles'
 
 const styles = (theme) => {
     return createStyles({
+        ...habitCommonStyles(theme),
         root: {
             display: 'inline-block'
-        },
-        icon: {
-            width: '1em',
-            height: '1em',
-            color: theme.habitIconColor
         },
         noSelectedIcon: {
             color: 'inherit'

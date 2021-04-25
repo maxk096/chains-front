@@ -5,8 +5,8 @@ import './utils/dayjs'
 import { initFirebase } from './firebase/index'
 import { App } from './components/app/app'
 
-const startApp = () => {
-    initFirebase()
+const startApp = async () => {
+    await initFirebase()
 
     ReactDOM.render(<App />, document.getElementById('root'))
 }

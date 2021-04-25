@@ -10,6 +10,7 @@ const styles = (theme) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            width: '100%',
             '&:before, &:after': {
                 content: '""',
                 display: 'block',

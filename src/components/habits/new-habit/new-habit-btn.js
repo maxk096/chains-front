@@ -7,6 +7,8 @@ import { inject, observer } from 'mobx-react'
 import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
+export const NEW_HABIT_BTN_RESERVED_HEIGHT = 90
+
 const styles = (theme) => {
     return createStyles({
         speedDial: {

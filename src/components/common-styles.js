@@ -14,3 +14,19 @@ export const getCommonStyles = (theme) => {
         }
     })
 }
+
+export const habitCommonStyles = (theme) => {
+    return createStyles({
+        icon: {
+            width: '24px',
+            height: '24px',
+            color: theme.habit.iconColor
+        },
+        breakType: {
+            backgroundColor: theme.habit.breakType
+        },
+        buildType: {
+            backgroundColor: theme.habit.buildType
+        }
+    })
+}
