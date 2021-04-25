@@ -10,7 +10,7 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 const styles = (theme) => {
     return createStyles({
         speedDial: {
-            position: 'absolute',
+            position: 'fixed',
             bottom: 50,
             right: 50,
             zIndex: 1200,
