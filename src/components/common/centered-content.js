@@ -22,14 +22,24 @@ const styles = (theme) => {
                     display: 'none'
                 }
             }
+        },
+        fullHeight: {
+            height: '100%'
         }
     })
 }
 
 const CenteredContentPure = (props) => {
-    const { classes, className, children, ...rest } = props
+    const { classes, className, fullHeight, children, ...rest } = props
     return (
-        <div className={classNames(className, classes.root)} {...rest}>
+        <div
+            className={classNames({
+                [className]: className,
+                [classes.root]: true,
+                [classes.fullHeight]: fullHeight
+            })}
+            {...rest}
+        >
             {children}
         </div>
     )
