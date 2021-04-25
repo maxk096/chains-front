@@ -21,6 +21,10 @@ export class HabitsTransport {
         return this.db.collection('app').doc('habits').collection(this.userId)
     }
 
+    get executionsCollection() {
+        return this.db.collection('app').doc('executions').collection(this.userId)
+    }
+
     createHabit = async (habit) => {
         return await this.habitsCollection.add({
             ...habit,

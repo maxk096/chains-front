@@ -1,22 +1,16 @@
-import { action, computed, makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 
 export class HabitsStore {
     constructor(props) {
         this.habitsTransport = props.habitsTransport
         this.onHabitsChangeUnsub = null
-        this.onExecutionsChangeUnsub = null
         this.isHabitsInitialized = false
         this.habits = null
         makeObservable(this, {
             habits: observable,
             onHabitsChange: action,
-            isExecutionsInitialized: observable,
-            isInitialized: computed
+            isHabitsInitialized: observable,
         })
-    }
-
-    get isInitialized() {
-        return this.isHabitsInitialized
     }
 
     init = () => {

@@ -19,7 +19,7 @@ export const lightTheme = createMuiTheme({
         background: {
             default: '#fafafa',
             dark: '#ededed',
-            darker: 'rgba(0, 0, 0, 0.5)',
+            darker: 'rgba(0, 0, 0, 0.5)'
         }
     },
     bg: {
@@ -101,7 +101,8 @@ export const lightTheme = createMuiTheme({
     habit: {
         iconColor: '#001fffa6',
         buildType: '#4fb54f',
-        breakType: '#ff7272'
+        breakType: '#ff7272',
+        executed: '#4fb54f'
     },
     light: '#fff',
     logoTitle: '#ff9000',

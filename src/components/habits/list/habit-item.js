@@ -9,6 +9,7 @@ import { getIsoWeekdays } from '../../../utils/dayjs'
 import { computed, makeObservable } from 'mobx'
 import { habitType } from '../../../stores/habits/utils'
 import dayjs from 'dayjs'
+import { HabitExecutionBtn } from './habit-execution-btn'
 
 const styles = (theme) => {
     return createStyles({
@@ -29,10 +30,6 @@ const styles = (theme) => {
             display: 'flex',
             alignItems: 'center',
             flex: 1
-        },
-        actions: {
-            height: '100%',
-            marginLeft: 10
         },
         type: {
             position: 'absolute',
@@ -105,7 +102,7 @@ class HabitItemPure extends React.Component {
                         </Typography>
                     </div>
                 </div>
-                <div className={classes.actions}></div>
+                <HabitExecutionBtn habit={habit} />
                 <div
                     className={classNames({
                         [classes.type]: true,

@@ -10,6 +10,8 @@ import { NewHabitModal } from './new-habit/new-habit-modal'
 import { NewHabitModalStore } from '../../stores/habits/new-habit/new-habit-modal'
 import { HabitsList } from './list/habits-list'
 import { Loader } from '../common/loader'
+import { HabitExecutionStore } from '../../stores/habits/habit-execution/habit-execution-store'
+import { habitExecutionCtx } from './list/habit-execution-btn'
 
 const styles = (theme) => {
     return createStyles({
@@ -40,57 +42,78 @@ const styles = (theme) => {
     })
 }
 
+const HabitExecutionCtxProvider = habitExecutionCtx.Provider
+
 class HabitsPagePure extends React.Component {
     constructor(props) {
         super(props)
-        const { transport } = this.props
+        const { transport, uiStore } = this.props
         const { habitsTransport } = transport
         this.habitsStore = new HabitsStore({ habitsTransport })
+        this.habitExecutionStore = new HabitExecutionStore({ habitsTransport, uiStore })
         this.newHabitModalStore = new NewHabitModalStore()
+        const {
+            onExecutionClick,
+            onExecutionLongPress,
+            getTodaysExecutionByHabitId,
+            getTodaysHabitExecutionType
+        } = this.habitExecutionStore
+        this.habitActionsCtxValue = {
+            onExecutionClick,
+            onExecutionLongPress,
+            getTodaysExecutionByHabitId,
+            getTodaysHabitExecutionType
+        }
     }
 
     componentDidMount() {
         this.habitsStore.init()
+        this.habitExecutionStore.init()
     }
 
     componentWillUnmount() {
         this.habitsStore.cleanUp()
+        this.habitExecutionStore.cleanUp()
     }
 
     render() {
         const { classes } = this.props
-        const { habits, isInitialized } = this.habitsStore
+        const { habits, isHabitsInitialized } = this.habitsStore
+        const { isExecutionsInitialized } = this.habitExecutionStore
+        const isInitialized = isHabitsInitialized && isExecutionsInitialized
 
         return (
             <Provider newHabitModalStore={this.newHabitModalStore}>
-                <Page className={classes.root}>
-                    <Header />
-                    <div className={classes.content}>
-                        <div className={classes.innerContent}>
-                            <div className={classes.habitsList}>
-                                <Loader
-                                    classes={{ loaderWrap: classes.loaderWrap }}
-                                    isLoading={!isInitialized}
-                                    render={() => (
-                                        <>
-                                            <Typography className={classes.myHabits} variant='h6'>
-                                                My habits
-                                            </Typography>
-                                            <HabitsList habits={habits} />
-                                        </>
-                                    )}
-                                />
+                <HabitExecutionCtxProvider value={this.habitActionsCtxValue}>
+                    <Page className={classes.root}>
+                        <Header />
+                        <div className={classes.content}>
+                            <div className={classes.innerContent}>
+                                <div className={classes.habitsList}>
+                                    <Loader
+                                        classes={{ loaderWrap: classes.loaderWrap }}
+                                        isLoading={!isInitialized}
+                                        render={() => (
+                                            <>
+                                                <Typography className={classes.myHabits} variant='h6'>
+                                                    My habits
+                                                </Typography>
+                                                <HabitsList habits={habits} />
+                                            </>
+                                        )}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <NewHabitBtn />
-                    <NewHabitModal />
-                </Page>
+                        <NewHabitBtn />
+                        <NewHabitModal />
+                    </Page>
+                </HabitExecutionCtxProvider>
             </Provider>
         )
     }
 }
 
-const HabitsPage = flowRight(withStyles(styles), inject('transport'), observer)(HabitsPagePure)
+const HabitsPage = flowRight(withStyles(styles), inject('transport', 'uiStore'), observer)(HabitsPagePure)
 
 export { HabitsPage }
