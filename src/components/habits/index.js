@@ -12,6 +12,8 @@ import { HabitsList } from './list/habits-list'
 import { Loader } from '../common/loader'
 import { HabitExecutionStore } from '../../stores/habits/habit-execution/habit-execution-store'
 import { habitExecutionCtx } from './list/habit-execution-btn'
+import { CenteredContent } from '../common/centered-content'
+import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded'
 
 const styles = (theme) => {
     return createStyles({
@@ -29,7 +31,7 @@ const styles = (theme) => {
             padding: '0 10px',
             flex: 1
         },
-        myHabits: {
+        title: {
             margin: '20px 0'
         },
         habitsList: {
@@ -38,6 +40,15 @@ const styles = (theme) => {
         },
         loaderWrap: {
             height: '100%'
+        },
+        noHabitsWrap: {
+            display: 'flex',
+            alignItems: 'center'
+        },
+        noHabitsIcon: {
+            marginLeft: 10,
+            width: 50,
+            height: 50
         }
     })
 }
@@ -76,9 +87,36 @@ class HabitsPagePure extends React.Component {
         this.habitExecutionStore.cleanUp()
     }
 
+    renderContent = () => {
+        const { classes } = this.props
+        const { habits } = this.habitsStore
+
+        if (!habits.length) {
+            return (
+                <CenteredContent fullHeight>
+                    <div className={classes.noHabitsWrap}>
+                        <Typography className={classes.title} variant='subtitle2'>
+                            It's time to build some habits together
+                        </Typography>
+                        <SentimentVerySatisfiedRoundedIcon className={classes.noHabitsIcon} />
+                    </div>
+                </CenteredContent>
+            )
+        }
+
+        return (
+            <>
+                <Typography className={classes.title} variant='h6'>
+                    My habits
+                </Typography>
+                <HabitsList habits={habits} />
+            </>
+        )
+    }
+
     render() {
         const { classes } = this.props
-        const { habits, isHabitsInitialized } = this.habitsStore
+        const { isHabitsInitialized } = this.habitsStore
         const { isExecutionsInitialized } = this.habitExecutionStore
         const isInitialized = isHabitsInitialized && isExecutionsInitialized
 
@@ -93,14 +131,7 @@ class HabitsPagePure extends React.Component {
                                     <Loader
                                         classes={{ loaderWrap: classes.loaderWrap }}
                                         isLoading={!isInitialized}
-                                        render={() => (
-                                            <>
-                                                <Typography className={classes.myHabits} variant='h6'>
-                                                    My habits
-                                                </Typography>
-                                                <HabitsList habits={habits} />
-                                            </>
-                                        )}
+                                        render={this.renderContent}
                                     />
                                 </div>
                             </div>
