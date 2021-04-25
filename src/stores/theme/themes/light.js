@@ -77,6 +77,11 @@ export const lightTheme = createMuiTheme({
             primary: {
                 backgroundColor: '#ff9000 !important'
             }
+        },
+        MuiTooltip: {
+            tooltip: {
+                fontSize: '0.675rem'
+            }
         }
     },
     link: {

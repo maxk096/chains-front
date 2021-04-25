@@ -1,8 +1,7 @@
-import { createStyles, IconButton, withStyles } from '@material-ui/core'
+import { createStyles, IconButton, Tooltip, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React, { useContext } from 'react'
 import { observer } from 'mobx-react'
-import classNames from 'classnames'
 import { executionType } from '../../../stores/habits/habit-execution/utils'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
@@ -46,17 +45,34 @@ const HabitExecutionBtnPure = (props) => {
 
     return (
         <div className={classes.action}>
-            <IconButton
-                {...btnProps}
-                className={classNames({
-                    [classes.executedBtn]: selectedExecutionType === executionType.EXECUTED
-                })}
-            >
-                {selectedExecutionType === executionType.EXECUTED && <CheckCircleIcon />}
-                {selectedExecutionType === executionType.NOT_EXECUTED && <RadioButtonUncheckedIcon />}
-                {selectedExecutionType === executionType.OPTIONAL && <AdjustIcon />}
-                {selectedExecutionType === executionType.SKIPPED && <RemoveIcon />}
-            </IconButton>
+            {selectedExecutionType === executionType.EXECUTED && (
+                <Tooltip key='action' title='Done'>
+                    <IconButton {...btnProps} className={classes.executedBtn}>
+                        <CheckCircleIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
+            {selectedExecutionType === executionType.NOT_EXECUTED && (
+                <Tooltip key='action' title='Not done'>
+                    <IconButton {...btnProps}>
+                        <RadioButtonUncheckedIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
+            {selectedExecutionType === executionType.OPTIONAL && (
+                <Tooltip key='action' title='Optional'>
+                    <IconButton {...btnProps}>
+                        <AdjustIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
+            {selectedExecutionType === executionType.SKIPPED && (
+                <Tooltip key='action' title='Skipped'>
+                    <IconButton {...btnProps}>
+                        <RemoveIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
         </div>
     )
 }
