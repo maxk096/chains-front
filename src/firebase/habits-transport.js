@@ -1,5 +1,6 @@
 import { computed, makeObservable } from 'mobx'
 import { getFirebaseApp } from '.'
+import { createHabitCreatedAt } from '../stores/habits/utils'
 
 export class HabitsTransport {
     constructor(props) {
@@ -21,7 +22,10 @@ export class HabitsTransport {
     }
 
     createHabit = async (habit) => {
-        return await this.habitsCollection.add(habit)
+        return await this.habitsCollection.add({
+            ...habit,
+            createdAt: createHabitCreatedAt()
+        })
     }
 
     decodeImageWithHabits = async (file) => {

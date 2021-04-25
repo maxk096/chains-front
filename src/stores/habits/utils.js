@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import dayjs from 'dayjs'
 import { habitIcon } from './icons'
 
 export const habitType = {
@@ -29,4 +30,10 @@ export const getDefaultHabit = () => {
         executionDays: [],
         notificationTime: ''
     }
+}
+
+export const HABIT_CREATED_AT_FORMAT = 'YYYY-MM-DD hh:mm:ss'
+
+export const createHabitCreatedAt = () => {
+    return dayjs().format(HABIT_CREATED_AT_FORMAT)
 }
