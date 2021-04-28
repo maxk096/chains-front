@@ -16,7 +16,7 @@ export class HabitsStore {
     init = () => {
         this.onHabitsChangeUnsub = this.habitsTransport.habitsCollection
             .orderBy('createdAt', 'desc')
-            .onSnapshot({ includeMetadataChanges: true }, this.onHabitsChange)
+            .onSnapshot(this.onHabitsChange)
     }
 
     cleanUp = () => {
@@ -24,6 +24,7 @@ export class HabitsStore {
     }
 
     onHabitsChange = (snapshot) => {
+    console.log('🚀 ~ file: habits-store.js ~ line 27 ~ HabitsStore ~ snapshot', snapshot.metadata)
         const data = []
         snapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() })

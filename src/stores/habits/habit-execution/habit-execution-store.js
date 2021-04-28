@@ -20,7 +20,7 @@ export class HabitExecutionStore {
         const today = dayjs().format(EXECUTION_CREATED_AT_FORMAT)
         this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
             .where('createdAt', '==', today)
-            .onSnapshot({ includeMetadataChanges: true }, this.onExecutionsChange)
+            .onSnapshot(this.onExecutionsChange)
     }
 
     cleanUp = () => {
