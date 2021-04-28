@@ -30,7 +30,7 @@ export const getDefaultHabit = () => {
     }
 }
 
-export const HABIT_CREATED_AT_FORMAT = 'YYYY-MM-DD hh:mm:ss'
+export const HABIT_CREATED_AT_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 
 export const createHabitCreatedAt = () => {
     return dayjs().format(HABIT_CREATED_AT_FORMAT)
