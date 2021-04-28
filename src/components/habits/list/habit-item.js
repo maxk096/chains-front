@@ -41,6 +41,9 @@ const styles = (theme) => {
         highlightedDay: {
             fontWeight: 'bold',
             textTransform: 'capitalize'
+        },
+        details: {
+            marginTop: 5
         }
     })
 }
@@ -68,10 +71,13 @@ class HabitItemPure extends React.Component {
     }
 
     render() {
-        const { classes, habit } = this.props
-        const { type } = habit
+        const { classes, habit, detailedView } = this.props
+        const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
+        const hasQuestion = !!question
+        const hasReason = !!reason
+        const shouldShowDetails = detailedView && (hasQuestion || hasReason)
 
         return (
             <Card className={classes.root} elevation={3}>
@@ -97,6 +103,20 @@ class HabitItemPure extends React.Component {
                                 </span>
                             ])}
                         </Typography>
+                        {shouldShowDetails && (
+                            <div className={classes.details}>
+                                {hasQuestion && (
+                                    <Typography variant='body2'>
+                                        <b>Question:</b> {question}
+                                    </Typography>
+                                )}
+                                {hasReason && (
+                                    <Typography variant='body2'>
+                                        <b>Reason:</b> {reason}
+                                    </Typography>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
                 <HabitExecutionBtn habit={habit} />
