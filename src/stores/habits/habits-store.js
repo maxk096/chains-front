@@ -24,7 +24,6 @@ export class HabitsStore {
     }
 
     onHabitsChange = (snapshot) => {
-    console.log('🚀 ~ file: habits-store.js ~ line 27 ~ HabitsStore ~ snapshot', snapshot.metadata)
         const data = []
         snapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() })
