@@ -16,8 +16,7 @@ export const habitValidationSchema = yup.object().shape({
     executionDays: yup
         .array(yup.number())
         .min(1, 'Select at least one execution day.')
-        .namedRequired('Execution days'),
-    notificationTime: yup.string()
+        .namedRequired('Execution days')
 })
 
 export const getDefaultHabit = () => {
@@ -27,8 +26,7 @@ export const getDefaultHabit = () => {
         icon: '',
         question: '',
         reason: '',
-        executionDays: [],
-        notificationTime: ''
+        executionDays: []
     }
 }
 

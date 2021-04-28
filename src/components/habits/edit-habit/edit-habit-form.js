@@ -15,7 +15,6 @@ import { WeekdayPicker } from '../../common/weekday-picker'
 import Select from '@material-ui/core/Select'
 import { action, makeObservable, observable } from 'mobx'
 import classNames from 'classnames'
-import { FormTimePicker } from '../../common/form/form-time-picker'
 import { CommonErrorMessage } from '../../common/error-message'
 import { CommonButton } from '../../common/button'
 
@@ -193,15 +192,6 @@ class EditHabitFormPure extends React.Component {
                     disabled={isSubmitting}
                 />
                 <FormErrorMessage name='executionDays' />
-                <div className={classes.labeledFieldWrap}>
-                    <div className={classes.label}>Notification time:</div>
-                    <FormTimePicker
-                        name='notificationTime'
-                        withErrorMessage={false}
-                        mode='24h'
-                        wrapClass={classes.labeledField}
-                    />
-                </div>
                 <CommonErrorMessage>{formError}</CommonErrorMessage>
                 <div className={classes.contolBtns}>
                     <CommonButton

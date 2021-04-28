@@ -69,7 +69,7 @@ class HabitItemPure extends React.Component {
 
     render() {
         const { classes, habit } = this.props
-        const { notificationTime, type } = habit
+        const { type } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
 
@@ -96,9 +96,6 @@ class HabitItemPure extends React.Component {
                                     {name}
                                 </span>
                             ])}
-                            {!!notificationTime && (
-                                <span className={classes.notificationTime}> at {notificationTime}</span>
-                            )}
                         </Typography>
                     </div>
                 </div>
