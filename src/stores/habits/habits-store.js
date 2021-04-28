@@ -9,15 +9,14 @@ export class HabitsStore {
         makeObservable(this, {
             habits: observable,
             onHabitsChange: action,
-            isHabitsInitialized: observable,
+            isHabitsInitialized: observable
         })
     }
 
     init = () => {
-        this.onHabitsChangeUnsub = this.habitsTransport.habitsCollection.onSnapshot(
-            { includeMetadataChanges: true },
-            this.onHabitsChange
-        )
+        this.onHabitsChangeUnsub = this.habitsTransport.habitsCollection
+            .orderBy('createdAt', 'desc')
+            .onSnapshot({ includeMetadataChanges: true }, this.onHabitsChange)
     }
 
     cleanUp = () => {
