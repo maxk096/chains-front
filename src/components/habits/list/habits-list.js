@@ -14,17 +14,13 @@ const styles = (theme) => {
 }
 
 class HabitsListPure extends React.Component {
-    static defaultProps = {
-        detailedView: false
-    }
-
     render() {
-        const { classes, habits, detailedView } = this.props
+        const { classes, habits, getHabitItemProps } = this.props
 
         return (
             <div className={classes.root}>
                 {habits.map((habit) => (
-                    <HabitItem key={habit.id} habit={habit} detailedView={detailedView} />
+                    <HabitItem key={habit.id} habit={habit} {...getHabitItemProps?.(habit)} />
                 ))}
             </div>
         )

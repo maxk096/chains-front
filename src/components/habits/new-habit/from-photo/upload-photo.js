@@ -12,10 +12,6 @@ import classNames from 'classnames'
 
 const styles = (theme) => {
     return createStyles({
-        rootContent: {
-            height: '100%',
-            outline: 'none'
-        },
         ...modalStyles(theme),
         cardModifier: {
             alignItems: 'initial'

@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
 import { AddNewHabitModal } from './new-habit/add-new-habit'
 import { AddNewHabitFromPhotoModal } from './from-photo/add-new-habit-from-photo'
+import { AddPredefinedHabitsModal } from './predefined-habits/add-predefined-habits'
 
 const styles = (theme) => {
     return createStyles({})
@@ -24,6 +25,8 @@ class NewHabitModalPure extends React.Component {
                 return <AddNewHabitModal />
             case modalState.ADD_NEW_FROM_PHOTO: 
                 return <AddNewHabitFromPhotoModal />
+            case modalState.PREDEFINED_HABITS: 
+                return <AddPredefinedHabitsModal />
             default:
                 return null
         }

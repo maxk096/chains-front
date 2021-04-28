@@ -92,11 +92,21 @@ const executionDaysTypeValues = {
 class EditHabitFormPure extends React.Component {
     constructor(p) {
         super(p)
-        this.handleExecutionDaysTypeChange(executionDaysTypeValues.EVERY_DAY.type)
+        this.preselectExecutionDaysType()
         makeObservable(this, {
             executionDaysType: observable,
             handleExecutionDaysTypeChange: action
         })
+    }
+
+    preselectExecutionDaysType = () => {
+        const { values } = this.props
+        const { executionDays } = values
+        if (executionDays.length) {
+            this.handleExecutionDaysTypeChange(executionDaysTypeValues.CUSTOM.type)
+        } else {
+            this.handleExecutionDaysTypeChange(executionDaysTypeValues.EVERY_DAY.type)
+        }
     }
 
     setFieldValueWithValidation = (field, value) => {

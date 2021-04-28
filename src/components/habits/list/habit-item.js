@@ -49,6 +49,11 @@ const styles = (theme) => {
 }
 
 class HabitItemPure extends React.Component {
+    static defaultProps = {
+        detailedView: false,
+        showExecution: true
+    }
+
     constructor(p) {
         super(p)
         this.weekdayFormatTemplate = 'ddd'
@@ -71,7 +76,7 @@ class HabitItemPure extends React.Component {
     }
 
     render() {
-        const { classes, habit, detailedView } = this.props
+        const { classes, habit, detailedView, showExecution, onClick } = this.props
         const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
@@ -80,7 +85,7 @@ class HabitItemPure extends React.Component {
         const shouldShowDetails = detailedView && (hasQuestion || hasReason)
 
         return (
-            <Card className={classes.root} elevation={3}>
+            <Card className={classes.root} elevation={3} onClick={onClick}>
                 <div className={classes.titleWrap}>
                     {HabitIcon ? (
                         <HabitIcon className={iconClassName} />
@@ -119,7 +124,7 @@ class HabitItemPure extends React.Component {
                         )}
                     </div>
                 </div>
-                <HabitExecutionBtn habit={habit} />
+                {showExecution && <HabitExecutionBtn habit={habit} />}
                 <div
                     className={classNames({
                         [classes.type]: true,

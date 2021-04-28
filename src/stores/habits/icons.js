@@ -48,7 +48,7 @@ import {
     Notifications,
     Motorcycle,
     Pets,
-    ThumbUp
+    Code
 } from '@material-ui/icons'
 
 export const habitIcon = {
@@ -101,5 +101,5 @@ export const habitIcon = {
     Notifications,
     Motorcycle,
     Pets,
-    ThumbUp
+    Code
 }

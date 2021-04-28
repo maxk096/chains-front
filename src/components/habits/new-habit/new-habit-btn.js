@@ -5,7 +5,8 @@ import React, { useState } from 'react'
 import CreateIcon from '@material-ui/icons/Create'
 import { inject, observer } from 'mobx-react'
 import { modalState } from '../../../stores/habits/new-habit/new-habit-modal'
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
+import ViewListIcon from '@material-ui/icons/ViewList'
 
 export const NEW_HABIT_BTN_RESERVED_HEIGHT = 90
 
@@ -40,6 +41,11 @@ const actions = [
         key: modalState.ADD_NEW_FROM_PHOTO,
         icon: <PhotoCameraIcon />,
         name: 'Upload from photo'
+    },
+    {
+        key: modalState.PREDEFINED_HABITS,
+        icon: <ViewListIcon />,
+        name: 'Choose from predefined list'
     }
 ]
 

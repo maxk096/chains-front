@@ -11,10 +11,6 @@ import { CommonCheckbox } from '../../../common/checkbox'
 const styles = (theme) => {
     return createStyles({
         ...modalStyles(theme, { controls: 3 }),
-        rootContent: {
-            height: '100%',
-            outline: 'none'
-        },
         cardModifier: {
             alignItems: 'initial',
             wordBreak: 'break-word',
