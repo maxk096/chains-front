@@ -175,7 +175,11 @@ const HomePure = (props) => {
                 </div>
             </div>
             <div className={classes.content}>
-                <Header isTransparent classes={{ root: classes.headerRoot, link: classes.headerLink }} />
+                <Header
+                    isTransparent
+                    classes={{ root: classes.headerRoot, link: classes.headerLink }}
+                    position='static'
+                />
                 <div className={classes.block}>
                     <div className={classes.landingChart}></div>
                     <div className={classes.text}>

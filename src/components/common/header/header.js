@@ -46,7 +46,7 @@ const styles = (theme) => {
 }
 
 const HeaderPure = (props) => {
-    const { isTransparent, classes, userStore } = props
+    const { isTransparent, classes, userStore, ...rest } = props
     const { user } = userStore
 
     const renderLinks = () => {
@@ -73,6 +73,7 @@ const HeaderPure = (props) => {
                 [classes.transparent]: isTransparent
             })}
             position='sticky'
+            {...rest}
         >
             <HeaderLink className={classes.logoLink} to={routes.homepage.url}>
                 <Logo reversed />

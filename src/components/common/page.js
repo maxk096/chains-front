@@ -9,7 +9,8 @@ const styles = (theme) => {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            color: theme.palette.primary.main
+            color: theme.palette.primary.main,
+            overflowY: 'auto'
         }
     })
 }

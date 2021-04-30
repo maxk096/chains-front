@@ -5,8 +5,9 @@ import { flowRight } from 'lodash'
 const styles = () => {
     return createStyles({
         '@global': {
-            '#root': {
-                height: '100vh'
+            'html, body, #root': {
+                height: '100%',
+                overflow: 'hidden'
             }
         }
     })
