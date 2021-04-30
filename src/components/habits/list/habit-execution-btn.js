@@ -1,7 +1,7 @@
 import { createStyles, IconButton, Tooltip, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
-import React, { useContext } from 'react'
-import { observer } from 'mobx-react'
+import React from 'react'
+import { inject, observer } from 'mobx-react'
 import { executionType } from '../../../stores/habits/habit-execution/utils'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
@@ -21,16 +21,14 @@ const styles = (theme) => {
     })
 }
 
-export const habitExecutionCtx = React.createContext(undefined)
-
 const HabitExecutionBtnPure = (props) => {
-    const { classes, habit } = props
+    const { classes, habit, habitExecutionStore } = props
     const {
         onExecutionLongPress,
         onExecutionClick,
         getTodaysExecutionByHabitId,
         getTodaysHabitExecutionType
-    } = useContext(habitExecutionCtx)
+    } = habitExecutionStore
     const selectedExecutionType = getTodaysHabitExecutionType(habit)
 
     const onLongPress = async () => {
@@ -77,6 +75,10 @@ const HabitExecutionBtnPure = (props) => {
     )
 }
 
-const HabitExecutionBtn = flowRight(withStyles(styles), observer)(HabitExecutionBtnPure)
+const HabitExecutionBtn = flowRight(
+    withStyles(styles),
+    inject('habitExecutionStore'),
+    observer
+)(HabitExecutionBtnPure)
 
 export { HabitExecutionBtn }

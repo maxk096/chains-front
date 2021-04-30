@@ -44,6 +44,9 @@ const styles = (theme) => {
         },
         details: {
             marginTop: 5
+        },
+        habitName: {
+            display: 'inline-block'
         }
     })
 }
@@ -76,7 +79,7 @@ class HabitItemPure extends React.Component {
     }
 
     render() {
-        const { classes, habit, detailedView, showExecution, onClick } = this.props
+        const { classes, habit, detailedView, showExecution, onClick, onTitleClick } = this.props
         const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
@@ -93,7 +96,9 @@ class HabitItemPure extends React.Component {
                         <div className={iconClassName}></div>
                     )}
                     <div>
-                        <Typography variant='subtitle2'>{habit.name}</Typography>
+                        <Typography className={classes.habitName} onClick={onTitleClick} variant='subtitle2'>
+                            {habit.name}
+                        </Typography>
                         <Typography variant='body2'>
                             {this.executionDayNames.reduce((prev, name) => [
                                 prev,

@@ -11,9 +11,11 @@ import { NewHabitModalStore } from '../../stores/habits/new-habit/new-habit-moda
 import { HabitsList } from './list/habits-list'
 import { Loader } from '../common/loader'
 import { HabitExecutionStore } from '../../stores/habits/habit-execution/habit-execution-store'
-import { habitExecutionCtx } from './list/habit-execution-btn'
 import { CenteredContent } from '../common/centered-content'
 import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded'
+import { withRouter } from 'react-router-dom'
+import urlJoin from 'url-join'
+import { routes } from '../../stores/routing/routes'
 
 const styles = (theme) => {
     return createStyles({
@@ -49,11 +51,12 @@ const styles = (theme) => {
             marginLeft: 10,
             width: 50,
             height: 50
+        },
+        habitName: {
+            cursor: 'pointer'
         }
     })
 }
-
-const HabitExecutionCtxProvider = habitExecutionCtx.Provider
 
 class HabitsPagePure extends React.Component {
     constructor(props) {
@@ -63,18 +66,6 @@ class HabitsPagePure extends React.Component {
         this.habitsStore = new HabitsStore({ habitsTransport })
         this.habitExecutionStore = new HabitExecutionStore({ habitsTransport, uiStore })
         this.newHabitModalStore = new NewHabitModalStore()
-        const {
-            onExecutionClick,
-            onExecutionLongPress,
-            getTodaysExecutionByHabitId,
-            getTodaysHabitExecutionType
-        } = this.habitExecutionStore
-        this.habitActionsCtxValue = {
-            onExecutionClick,
-            onExecutionLongPress,
-            getTodaysExecutionByHabitId,
-            getTodaysHabitExecutionType
-        }
     }
 
     componentDidMount() {
@@ -85,6 +76,18 @@ class HabitsPagePure extends React.Component {
     componentWillUnmount() {
         this.habitsStore.cleanUp()
         this.habitExecutionStore.cleanUp()
+    }
+
+    getHabitItemProps = (habit) => {
+        const { classes, history } = this.props
+        const { id } = habit
+        const habitUrl = urlJoin(routes.habits.url, id)
+        return {
+            onTitleClick: () => history.push(habitUrl),
+            classes: {
+                habitName: classes.habitName
+            }
+        }
     }
 
     renderContent = () => {
@@ -109,7 +112,7 @@ class HabitsPagePure extends React.Component {
                 <Typography className={classes.title} variant='h6'>
                     My habits
                 </Typography>
-                <HabitsList habits={habits} />
+                <HabitsList habits={habits} getHabitItemProps={this.getHabitItemProps} />
             </>
         )
     }
@@ -121,30 +124,36 @@ class HabitsPagePure extends React.Component {
         const isInitialized = isHabitsInitialized && isExecutionsInitialized
 
         return (
-            <Provider newHabitModalStore={this.newHabitModalStore}>
-                <HabitExecutionCtxProvider value={this.habitActionsCtxValue}>
-                    <Page className={classes.root}>
-                        <Header />
-                        <div className={classes.content}>
-                            <div className={classes.innerContent}>
-                                <div className={classes.habitsList}>
-                                    <Loader
-                                        classes={{ loaderWrap: classes.loaderWrap }}
-                                        isLoading={!isInitialized}
-                                        render={this.renderContent}
-                                    />
-                                </div>
+            <Provider
+                newHabitModalStore={this.newHabitModalStore}
+                habitExecutionStore={this.habitExecutionStore}
+            >
+                <Page className={classes.root}>
+                    <Header />
+                    <div className={classes.content}>
+                        <div className={classes.innerContent}>
+                            <div className={classes.habitsList}>
+                                <Loader
+                                    classes={{ loaderWrap: classes.loaderWrap }}
+                                    isLoading={!isInitialized}
+                                    render={this.renderContent}
+                                />
                             </div>
                         </div>
-                        <NewHabitBtn />
-                        <NewHabitModal />
-                    </Page>
-                </HabitExecutionCtxProvider>
+                    </div>
+                    <NewHabitBtn />
+                    <NewHabitModal />
+                </Page>
             </Provider>
         )
     }
 }
 
-const HabitsPage = flowRight(withStyles(styles), inject('transport', 'uiStore'), observer)(HabitsPagePure)
+const HabitsPage = flowRight(
+    withStyles(styles),
+    withRouter,
+    inject('transport', 'uiStore'),
+    observer
+)(HabitsPagePure)
 
 export { HabitsPage }

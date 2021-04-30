@@ -6,6 +6,7 @@ export class HabitExecutionStore {
     constructor(props) {
         this.habitsTransport = props.habitsTransport
         this.uiStore = props.uiStore
+        this.habitIds = props.habitIds
         this.onExecutionsChangeUnsub = null
         this.isExecutionsInitialized = false
         this.todaysExecutions = null
@@ -18,9 +19,16 @@ export class HabitExecutionStore {
 
     init = () => {
         const today = dayjs().format(EXECUTION_CREATED_AT_FORMAT)
-        this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
-            .where('createdAt', '==', today)
-            .onSnapshot(this.onExecutionsChange)
+        if (this.habitIds) {
+            this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
+                .where('habitId', 'in', this.habitIds)
+                .where('createdAt', '==', today)
+                .onSnapshot(this.onExecutionsChange)
+        } else {
+            this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
+                .where('createdAt', '==', today)
+                .onSnapshot(this.onExecutionsChange)
+        }
     }
 
     cleanUp = () => {

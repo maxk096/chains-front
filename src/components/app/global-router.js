@@ -8,6 +8,7 @@ import { SignIn } from '../auth/sign-in'
 import { HabitsPage } from '../habits'
 import { WithAuthRoute } from '../common/routes/with-auth-route'
 import { WithoutAuthRoute } from '../common/routes/without-auth-route'
+import { HabitDetailsPage } from '../habit-details'
 
 class GlobalRouter extends React.Component {
     render() {
@@ -17,6 +18,7 @@ class GlobalRouter extends React.Component {
                 <WithoutAuthRoute path={routes.signup.url} exact component={SignUp} />
                 <WithoutAuthRoute path={routes.signin.url} exact component={SignIn} />
                 <WithAuthRoute path={routes.habits.url} exact component={HabitsPage} />
+                <WithAuthRoute path={routes.habits.next.habit.url} exact component={HabitDetailsPage} />
                 <Route path={routes.notFound.url} component={PageNotFound} />
             </Switch>
         )
