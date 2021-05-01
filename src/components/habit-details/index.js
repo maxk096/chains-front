@@ -12,6 +12,7 @@ import { HabitExecutionStore } from '../../stores/habits/habit-execution/habit-e
 import { CenteredContent } from '../common/centered-content'
 import { CommonLink } from '../common/link'
 import { routes } from '../../stores/routing/routes'
+import { HabitEditStore } from '../../stores/habit-details/habit-edit-store'
 
 const styles = (theme) => {
     return createStyles({
@@ -39,6 +40,7 @@ class HabitDetailsPagePure extends React.Component {
         const habitId = match.params.habitId
         this.habitExecutionStore = new HabitExecutionStore({ habitIds: [habitId], habitsTransport, uiStore })
         this.habitDetailsStore = new HabitDetailsStore({ habitId, habitsTransport })
+        this.habitEditStore = new HabitEditStore({ habitsTransport, uiStore })
     }
 
     componentDidMount() {
@@ -51,7 +53,7 @@ class HabitDetailsPagePure extends React.Component {
 
         return (
             <div>
-                <HabitItem habit={habit} detailedView />
+                <HabitItem habit={habit} detailedView showEdit />
             </div>
         )
     }
@@ -85,6 +87,7 @@ class HabitDetailsPagePure extends React.Component {
             <Provider
                 newHabitModalStore={this.newHabitModalStore}
                 habitExecutionStore={this.habitExecutionStore}
+                habitEditStore={this.habitEditStore}
             >
                 <Page>
                     <Header />

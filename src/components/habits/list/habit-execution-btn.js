@@ -11,10 +11,6 @@ import { useLongPress } from '../../common/hooks/use-long-press'
 
 const styles = (theme) => {
     return createStyles({
-        action: {
-            height: '100%',
-            marginLeft: 10
-        },
         executedBtn: {
             color: theme.habit.executed
         }
@@ -42,7 +38,7 @@ const HabitExecutionBtnPure = (props) => {
     const btnProps = useLongPress({ onClick, onLongPress })
 
     return (
-        <div className={classes.action}>
+        <>
             {selectedExecutionType === executionType.EXECUTED && (
                 <Tooltip key='action' title='Done'>
                     <IconButton {...btnProps} className={classes.executedBtn}>
@@ -71,7 +67,7 @@ const HabitExecutionBtnPure = (props) => {
                     </IconButton>
                 </Tooltip>
             )}
-        </div>
+        </>
     )
 }
 

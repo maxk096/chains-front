@@ -32,6 +32,10 @@ export class HabitsTransport {
         })
     }
 
+    updateHabit = async (habit) => {
+        return await this.habitsCollection.doc(habit.id).update(habit)
+    }
+
     decodeImageWithHabits = async (file) => {
         const token = await this.userStore.getUserIdToken()
         const form = new FormData()

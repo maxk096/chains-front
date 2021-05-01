@@ -10,6 +10,8 @@ import { computed, makeObservable } from 'mobx'
 import { habitType } from '../../../stores/habits/utils'
 import dayjs from 'dayjs'
 import { HabitExecutionBtn } from './habit-execution-btn'
+import { HabitEditBtn } from './habit-edit-btn'
+import { HabitEditModal } from './habit-edit-modal'
 
 const styles = (theme) => {
     return createStyles({
@@ -47,6 +49,12 @@ const styles = (theme) => {
         },
         habitName: {
             display: 'inline-block'
+        },
+        actions: {
+            display: 'inline-flex',
+            gap: '10px',
+            height: '100%',
+            marginLeft: 10
         }
     })
 }
@@ -54,7 +62,8 @@ const styles = (theme) => {
 class HabitItemPure extends React.Component {
     static defaultProps = {
         detailedView: false,
-        showExecution: true
+        showExecution: true,
+        showEdit: false
     }
 
     constructor(p) {
@@ -79,13 +88,14 @@ class HabitItemPure extends React.Component {
     }
 
     render() {
-        const { classes, habit, detailedView, showExecution, onClick, onTitleClick } = this.props
+        const { classes, habit, detailedView, showExecution, onClick, onTitleClick, showEdit } = this.props
         const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
         const hasQuestion = !!question
         const hasReason = !!reason
         const shouldShowDetails = detailedView && (hasQuestion || hasReason)
+        const shouldShowActions = showExecution || showEdit
 
         return (
             <Card className={classes.root} elevation={3} onClick={onClick}>
@@ -129,7 +139,13 @@ class HabitItemPure extends React.Component {
                         )}
                     </div>
                 </div>
-                {showExecution && <HabitExecutionBtn habit={habit} />}
+                {shouldShowActions && (
+                    <div className={classes.actions}>
+                        {showEdit && <HabitEditBtn habit={habit} />}
+                        {showExecution && <HabitExecutionBtn habit={habit} />}
+                    </div>
+                )}
+                {showEdit && <HabitEditModal />}
                 <div
                     className={classNames({
                         [classes.type]: true,
