@@ -4,8 +4,15 @@ import { promisifyFirebaseAuth } from './utils'
 
 export class AuthFacade {
     constructor() {
-        this.auth = getFirebaseApp().auth()
         this.googleProvider = new firebase.auth.GoogleAuthProvider()
+    }
+
+    get auth() {
+        return getFirebaseApp().auth()
+    }
+
+    get db() {
+        return getFirebaseApp().firestore()
     }
 
     createUserWithEmailAndPassword = async (email, password) => {
@@ -29,6 +36,10 @@ export class AuthFacade {
 
     signOut = async () => {
         const promise = this.auth.signOut()
-        return await promisifyFirebaseAuth(promise)
+        const res = await promisifyFirebaseAuth(promise)
+        await this.db.terminate()
+        await this.db.clearPersistence()
+        await this.db.enablePersistance()
+        return res
     }
 }

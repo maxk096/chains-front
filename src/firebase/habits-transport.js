@@ -4,13 +4,16 @@ import { createHabitCreatedAt } from '../stores/habits/utils'
 
 export class HabitsTransport {
     constructor(props) {
-        this.db = getFirebaseApp().firestore()
         this.functionsURL = process.env.REACT_APP_FUNCTIONS_API
         this.userStore = props.userStore
         makeObservable(this, {
             userId: computed,
             habitsCollection: computed
         })
+    }
+
+    get db() {
+        return getFirebaseApp().firestore()
     }
 
     get userId() {
