@@ -42,6 +42,7 @@ export class DeleteHabitStore extends LoadingStore {
 
     *handleOnDelete() {
         try {
+            this.startLoading()
             this.clearErrorState()
             const { name, id } = this.habitClone
             yield this.habitsTransport.deleteHabit(id)
@@ -50,6 +51,8 @@ export class DeleteHabitStore extends LoadingStore {
             this.history.push(routes.habits.url)
         } catch (ex) {
             this.setErrorState(ex.message)
+        } finally {
+            this.stopLoading()
         }
     }
 }
