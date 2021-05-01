@@ -10,8 +10,10 @@ import { computed, makeObservable } from 'mobx'
 import { habitType } from '../../../stores/habits/utils'
 import dayjs from 'dayjs'
 import { HabitExecutionBtn } from './habit-execution-btn'
-import { HabitEditBtn } from './habit-edit-btn'
-import { HabitEditModal } from './habit-edit-modal'
+import { HabitEditBtn } from '../edit-habit/habit-edit-btn'
+import { HabitEditModal } from '../edit-habit/habit-edit-modal'
+import { DeleteHabitBtn } from '../delete-habit/delete-habit-btn'
+import { DeleteHabitModal } from '../delete-habit/delete-habit-modal'
 
 const styles = (theme) => {
     return createStyles({
@@ -54,7 +56,10 @@ const styles = (theme) => {
             display: 'inline-flex',
             gap: '10px',
             height: '100%',
-            marginLeft: 10
+            marginLeft: 10,
+            [theme.breakpoints.down('xs')]: {
+                flexDirection: 'column'
+            }
         }
     })
 }
@@ -63,7 +68,8 @@ class HabitItemPure extends React.Component {
     static defaultProps = {
         detailedView: false,
         showExecution: true,
-        showEdit: false
+        showEdit: false,
+        showDelete: false
     }
 
     constructor(p) {
@@ -88,14 +94,23 @@ class HabitItemPure extends React.Component {
     }
 
     render() {
-        const { classes, habit, detailedView, showExecution, onClick, onTitleClick, showEdit } = this.props
+        const {
+            classes,
+            habit,
+            detailedView,
+            showExecution,
+            onClick,
+            onTitleClick,
+            showEdit,
+            showDelete
+        } = this.props
         const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
         const iconClassName = classNames(classes.icon, classes.iconModifier)
         const hasQuestion = !!question
         const hasReason = !!reason
         const shouldShowDetails = detailedView && (hasQuestion || hasReason)
-        const shouldShowActions = showExecution || showEdit
+        const shouldShowActions = showExecution || showEdit || showDelete
 
         return (
             <Card className={classes.root} elevation={3} onClick={onClick}>
@@ -141,10 +156,12 @@ class HabitItemPure extends React.Component {
                 </div>
                 {shouldShowActions && (
                     <div className={classes.actions}>
+                        {showDelete && <DeleteHabitBtn habit={habit} />}
                         {showEdit && <HabitEditBtn habit={habit} />}
                         {showExecution && <HabitExecutionBtn habit={habit} />}
                     </div>
                 )}
+                {showDelete && <DeleteHabitModal />}
                 {showEdit && <HabitEditModal />}
                 <div
                     className={classNames({

@@ -13,6 +13,7 @@ import { CenteredContent } from '../common/centered-content'
 import { CommonLink } from '../common/link'
 import { routes } from '../../stores/routing/routes'
 import { HabitEditStore } from '../../stores/habit-details/habit-edit-store'
+import { DeleteHabitStore } from '../../stores/habit-details/delete-habit-store'
 
 const styles = (theme) => {
     return createStyles({
@@ -35,12 +36,13 @@ const styles = (theme) => {
 class HabitDetailsPagePure extends React.Component {
     constructor(props) {
         super(props)
-        const { match, transport, uiStore } = this.props
+        const { match, transport, uiStore, history } = this.props
         const { habitsTransport } = transport
         const habitId = match.params.habitId
         this.habitExecutionStore = new HabitExecutionStore({ habitIds: [habitId], habitsTransport, uiStore })
         this.habitDetailsStore = new HabitDetailsStore({ habitId, habitsTransport })
         this.habitEditStore = new HabitEditStore({ habitsTransport, uiStore })
+        this.deleteHabitStore = new DeleteHabitStore({ habitsTransport, uiStore, history })
     }
 
     componentDidMount() {
@@ -53,7 +55,7 @@ class HabitDetailsPagePure extends React.Component {
 
         return (
             <div>
-                <HabitItem habit={habit} detailedView showEdit />
+                <HabitItem habit={habit} detailedView showEdit showDelete />
             </div>
         )
     }
@@ -88,6 +90,7 @@ class HabitDetailsPagePure extends React.Component {
                 newHabitModalStore={this.newHabitModalStore}
                 habitExecutionStore={this.habitExecutionStore}
                 habitEditStore={this.habitEditStore}
+                deleteHabitStore={this.deleteHabitStore}
             >
                 <Page>
                     <Header />

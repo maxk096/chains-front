@@ -36,6 +36,17 @@ export class HabitsTransport {
         return await this.habitsCollection.doc(habit.id).update(habit)
     }
 
+    deleteHabit = async (habitId) => {
+        const habitDocRef = this.habitsCollection.doc(habitId)
+        const executionsSnapshot = await this.executionsCollection.where('habitId', '==', habitId).get()
+        const batch = this.db.batch()
+        batch.delete(habitDocRef)
+        executionsSnapshot.forEach((doc) => {
+            batch.delete(doc.ref)
+        })
+        return await batch.commit()
+    }
+
     decodeImageWithHabits = async (file) => {
         const token = await this.userStore.getUserIdToken()
         const form = new FormData()
