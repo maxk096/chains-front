@@ -77,16 +77,14 @@ class HabitItemPure extends React.Component {
         this.weekdayFormatTemplate = 'ddd'
         this.weekdays = getIsoWeekdays(this.weekdayFormatTemplate)
         makeObservable(this, {
-            executionDayNames: computed
+            executionDays: computed
         })
     }
 
-    get executionDayNames() {
+    get executionDays() {
         const { habit } = this.props
         const { executionDays } = habit
-        return this.weekdays
-            .filter((weekday) => executionDays.includes(weekday.number))
-            .map((weekday) => weekday.name)
+        return this.weekdays.filter((weekday) => executionDays.includes(weekday.number))
     }
 
     isDayHighlighted = (name) => {
@@ -125,17 +123,17 @@ class HabitItemPure extends React.Component {
                             {habit.name}
                         </Typography>
                         <Typography variant='body2'>
-                            {this.executionDayNames.reduce((prev, name) => [
-                                prev,
-                                ', ',
-                                <span
-                                    key={name}
-                                    className={classNames({
-                                        [classes.highlightedDay]: this.isDayHighlighted(name)
-                                    })}
-                                >
-                                    {name}
-                                </span>
+                            {this.executionDays.map((day, index) => [
+                                <React.Fragment key={day.number}>
+                                    <span
+                                        className={classNames({
+                                            [classes.highlightedDay]: this.isDayHighlighted(day.name)
+                                        })}
+                                    >
+                                        {day.name}
+                                    </span>
+                                    {this.executionDays.length - 1 === index ? '' : ', '}
+                                </React.Fragment>
                             ])}
                         </Typography>
                         {shouldShowDetails && (
