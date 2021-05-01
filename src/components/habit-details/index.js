@@ -1,4 +1,4 @@
-import { createStyles, withStyles } from '@material-ui/core'
+import { createStyles, Typography, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React from 'react'
 import { Header } from '../common/header/header'
@@ -9,6 +9,9 @@ import { Loader } from '../common/loader'
 import { HabitItem } from '../habits/list/habit-item'
 import { HabitDetailsStore } from '../../stores/habit-details/habit-details'
 import { HabitExecutionStore } from '../../stores/habits/habit-execution/habit-execution-store'
+import { CenteredContent } from '../common/centered-content'
+import { CommonLink } from '../common/link'
+import { routes } from '../../stores/routing/routes'
 
 const styles = (theme) => {
     return createStyles({
@@ -43,13 +46,33 @@ class HabitDetailsPagePure extends React.Component {
         this.habitExecutionStore.init()
     }
 
-    renderContent = () => {
+    renderHabitContent = () => {
         const { habit } = this.habitDetailsStore
+
         return (
             <div>
                 <HabitItem habit={habit} detailedView />
             </div>
         )
+    }
+
+    renderNoHabitContent = () => {
+        return (
+            <CenteredContent fullHeight>
+                <Typography variant='subtitle2'>This habit is deleted or doesn't exist.</Typography>
+                <CommonLink to={routes.habits.url}>Back to my habits</CommonLink>
+            </CenteredContent>
+        )
+    }
+
+    renderContent = () => {
+        const { habit } = this.habitDetailsStore
+
+        if (habit) {
+            return this.renderHabitContent()
+        }
+
+        return this.renderNoHabitContent()
     }
 
     render() {
@@ -59,7 +82,10 @@ class HabitDetailsPagePure extends React.Component {
         const isInitialized = isHabitInitialized && isExecutionsInitialized
 
         return (
-            <Provider newHabitModalStore={this.newHabitModalStore} habitExecutionStore={this.habitExecutionStore}>
+            <Provider
+                newHabitModalStore={this.newHabitModalStore}
+                habitExecutionStore={this.habitExecutionStore}
+            >
                 <Page>
                     <Header />
                     <div className={classes.content}>

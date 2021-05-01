@@ -25,7 +25,9 @@ export class HabitDetailsStore {
     }
 
     onHabitChange = (snapshot) => {
-        this.habit = { id: snapshot.id, ...snapshot.data() }
+        if (snapshot.exists) {
+            this.habit = { id: snapshot.id, ...snapshot.data() }
+        }
         this.isHabitInitialized = true
     }
 }
