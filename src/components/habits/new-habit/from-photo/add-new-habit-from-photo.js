@@ -11,11 +11,7 @@ import { EditHabit } from '../../edit-habit/edit-habit'
 
 const styles = (theme) => {
     return createStyles({
-        ...modalStyles(theme),
-        rootContent: {
-            height: '100%',
-            outline: 'none'
-        }
+        ...modalStyles(theme)
     })
 }
 

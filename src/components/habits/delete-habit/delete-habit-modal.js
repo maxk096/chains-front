@@ -23,10 +23,6 @@ const styles = (theme) => {
             '&:hover': {
                 backgroundColor: theme.palette.error.light
             }
-        },
-        rootContent: {
-            height: '100%',
-            outline: 'none'
         }
     })
 }

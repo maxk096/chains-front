@@ -13,10 +13,6 @@ import classNames from 'classnames'
 const styles = (theme) => {
     return createStyles({
         ...modalStyles(theme),
-        rootContent: {
-            height: '100%',
-            outline: 'none'
-        },
         cancel: {
             marginTop: 20
         },

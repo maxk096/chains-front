@@ -20,6 +20,10 @@ export const modalStyles = (theme, { controls = 2 } = {}) => {
             display: 'grid',
             columnGap: '20px',
             gridTemplateColumns: `repeat(${controls}, 1fr)`
+        },
+        rootContent: {
+            height: '100%',
+            outline: 'none'
         }
     })
 }
