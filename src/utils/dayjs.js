@@ -1,9 +1,11 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import isoWeek from 'dayjs/plugin/isoWeek'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 
 dayjs.extend(isoWeek)
 dayjs.extend(utc)
+dayjs.extend(isSameOrBefore)
 
 export const getIsoWeekdays = (template = 'ddd') => {
     const weekdays = []

@@ -1,8 +1,6 @@
 import { createStyles, Typography, withStyles } from '@material-ui/core'
 import { flowRight } from 'lodash'
 import React from 'react'
-import { Header } from '../common/header/header'
-import { Page } from '../common/page'
 import { inject, observer, Provider } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { Loader } from '../common/loader'
@@ -14,6 +12,8 @@ import { CommonLink } from '../common/link'
 import { routes } from '../../stores/routing/routes'
 import { HabitEditStore } from '../../stores/habit-details/habit-edit-store'
 import { DeleteHabitStore } from '../../stores/habit-details/delete-habit-store'
+import { withExecutionsWorker } from './executions-worker-provider'
+import { HabitChartsStore } from '../../stores/habit-details/habit-charts-store'
 
 const styles = (theme) => {
     return createStyles({
@@ -33,21 +33,33 @@ const styles = (theme) => {
     })
 }
 
-class HabitDetailsPagePure extends React.Component {
+class HabitDetailsPure extends React.Component {
     constructor(props) {
         super(props)
-        const { match, transport, uiStore, history } = this.props
+        const { transport, uiStore, history, habitId, executionsWorker } = this.props
         const { habitsTransport } = transport
-        const habitId = match.params.habitId
-        this.habitExecutionStore = new HabitExecutionStore({ habitIds: [habitId], habitsTransport, uiStore })
         this.habitDetailsStore = new HabitDetailsStore({ habitId, habitsTransport })
+        this.habitExecutionStore = new HabitExecutionStore({ habitId, habitsTransport, uiStore })
         this.habitEditStore = new HabitEditStore({ habitsTransport, uiStore })
         this.deleteHabitStore = new DeleteHabitStore({ habitsTransport, uiStore, history })
+        this.habitChartsStore = new HabitChartsStore({
+            habitId,
+            habitsTransport,
+            executionsWorker,
+            habitDetailsStore: this.habitDetailsStore
+        })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.habitDetailsStore.init()
         this.habitExecutionStore.init()
+        this.habitChartsStore.init()
+    }
+
+    componentWillUnmount() {
+        this.habitDetailsStore.cleanUp()
+        this.habitExecutionStore.cleanUp()
+        this.habitChartsStore.cleanUp()
     }
 
     renderHabitContent = () => {
@@ -92,28 +104,26 @@ class HabitDetailsPagePure extends React.Component {
                 habitEditStore={this.habitEditStore}
                 deleteHabitStore={this.deleteHabitStore}
             >
-                <Page>
-                    <Header />
-                    <div className={classes.content}>
-                        <div className={classes.innerContent}>
-                            <Loader
-                                classes={{ loaderWrap: classes.loaderWrap }}
-                                isLoading={!isInitialized}
-                                render={this.renderContent}
-                            />
-                        </div>
+                <div className={classes.content}>
+                    <div className={classes.innerContent}>
+                        <Loader
+                            classes={{ loaderWrap: classes.loaderWrap }}
+                            isLoading={!isInitialized}
+                            render={this.renderContent}
+                        />
                     </div>
-                </Page>
+                </div>
             </Provider>
         )
     }
 }
 
-const HabitDetailsPage = flowRight(
+const HabitDetails = flowRight(
     withStyles(styles),
     withRouter,
+    withExecutionsWorker(),
     inject('transport', 'uiStore'),
     observer
-)(HabitDetailsPagePure)
+)(HabitDetailsPure)
 
-export { HabitDetailsPage }
+export { HabitDetails }

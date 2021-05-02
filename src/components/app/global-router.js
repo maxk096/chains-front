@@ -8,7 +8,7 @@ import { SignIn } from '../auth/sign-in'
 import { HabitsPage } from '../habits'
 import { WithAuthRoute } from '../common/routes/with-auth-route'
 import { WithoutAuthRoute } from '../common/routes/without-auth-route'
-import { HabitDetailsPage } from '../habit-details'
+import { HabitDetailsPage } from '../habit-details/habit-details-page'
 
 class GlobalRouter extends React.Component {
     render() {
