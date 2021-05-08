@@ -8,12 +8,16 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { MenuItemBase } from '../menu/menu-item-base'
 import { withRouter } from 'react-router-dom'
 import { SettingsModal } from './settings-modal'
+import { OfflineTooltip } from './offline-tooltip'
 
 const styles = (theme) => {
     return createStyles({
         menuIcon: {
             color: theme.header.menu.iconColor,
             padding: 6
+        },
+        offlineTooltip: {
+            marginRight: 15
         }
     })
 }
@@ -51,6 +55,7 @@ const UserMenuPure = (props) => {
 
     return (
         <>
+            <OfflineTooltip className={classes.offlineTooltip} />
             <CommonMenu
                 renderMenuItems={renderUserMenuItems}
                 open={isMenuOpen}

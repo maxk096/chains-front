@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const DeleteHabitBtnPure = (props) => {
-    const { habit, deleteHabitStore } = props
+    const { habit, deleteHabitStore, connectionStateStore } = props
     const { openDeleteHabit } = deleteHabitStore
+    const { isOnline } = connectionStateStore
 
     const onClick = () => {
         openDeleteHabit(habit)
@@ -14,11 +15,14 @@ const DeleteHabitBtnPure = (props) => {
 
     return (
         <Tooltip title='Delete'>
-            <IconButton onClick={onClick}>
+            <IconButton onClick={onClick} disabled={!isOnline}>
                 <DeleteIcon />
             </IconButton>
         </Tooltip>
     )
 }
 
-export const DeleteHabitBtn = flowRight(inject('deleteHabitStore'), observer)(DeleteHabitBtnPure)
+export const DeleteHabitBtn = flowRight(
+    inject('deleteHabitStore', 'connectionStateStore'),
+    observer
+)(DeleteHabitBtnPure)

@@ -12,6 +12,7 @@ import { HabitsTransport } from '../../firebase/habits-transport'
 import { UiStore } from '../../stores/ui/ui-store'
 import { AppSnackbarProvider } from '../common/snackbar/snackbar-provider'
 import { RegisterSnackbar } from '../common/snackbar/register-snackbar'
+import { ConnectionStateStore } from '../../stores/connection-state/connection-state-store'
 
 class AppPure extends React.Component {
     constructor(p) {
@@ -20,11 +21,13 @@ class AppPure extends React.Component {
         const authFacade = new AuthFacade()
         const userStore = new UserStore({ authFacade })
         const uiStore = new UiStore()
+        const connectionStateStore = new ConnectionStateStore()
         this.globalStores = {
             themeStore,
             userStore,
             authFacade,
-            uiStore
+            uiStore,
+            connectionStateStore
         }
 
         const habitsTransport = new HabitsTransport({ userStore })
@@ -33,14 +36,21 @@ class AppPure extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.globalStores.userStore.init()
+        this.globalStores.connectionStateStore.init()
+    }
+
     componentWillUnmount() {
         this.globalStores.userStore.cleanUp()
+        this.globalStores.connectionStateStore.cleanUp()
     }
 
     render() {
-        const { userStore, themeStore } = this.globalStores
+        const { userStore, themeStore, connectionStateStore } = this.globalStores
+        const isInitialized = userStore.isInitialized && connectionStateStore.isInitialized
 
-        if (!userStore.isInitialized) {
+        if (!isInitialized) {
             return null
         }
 

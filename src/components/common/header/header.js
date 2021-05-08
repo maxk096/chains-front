@@ -6,6 +6,7 @@ import React from 'react'
 import { routes } from '../../../stores/routing/routes'
 import { HeaderLink } from '../header-link'
 import { Logo } from '../logo'
+import { OfflineTooltip } from './offline-tooltip'
 import { UserMenu } from './user-menu'
 
 const styles = (theme) => {
@@ -26,7 +27,8 @@ const styles = (theme) => {
         },
         links: {
             display: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            alignItems: 'center'
         },
         link: {
             color: theme.headerLink,
@@ -56,6 +58,7 @@ const HeaderPure = (props) => {
 
         return (
             <>
+                <OfflineTooltip />
                 <HeaderLink className={classes.link} to={routes.signup.url}>
                     Sign up
                 </HeaderLink>

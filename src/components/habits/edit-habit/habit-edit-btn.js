@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react'
 import EditIcon from '@material-ui/icons/Edit'
 
 const HabitEditBtnPure = (props) => {
-    const { habit, habitEditStore } = props
+    const { habit, habitEditStore, connectionStateStore } = props
     const { openEditHabit } = habitEditStore
+    const { isOnline } = connectionStateStore
 
     const onClick = () => {
         openEditHabit(habit)
@@ -14,11 +15,14 @@ const HabitEditBtnPure = (props) => {
 
     return (
         <Tooltip title='Edit'>
-            <IconButton onClick={onClick}>
+            <IconButton onClick={onClick} disabled={!isOnline}>
                 <EditIcon />
             </IconButton>
         </Tooltip>
     )
 }
 
-export const HabitEditBtn = flowRight(inject('habitEditStore'), observer)(HabitEditBtnPure)
+export const HabitEditBtn = flowRight(
+    inject('habitEditStore', 'connectionStateStore'),
+    observer
+)(HabitEditBtnPure)

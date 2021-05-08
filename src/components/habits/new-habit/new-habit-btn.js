@@ -50,24 +50,25 @@ const actions = [
 ]
 
 const NewHabitBtnPure = (props) => {
-    const { classes, newHabitModalStore } = props
-    const [isOpen, setIsOpen] = useState(false)
-    const { openNewHabitModal } = newHabitModalStore
-    const openDial = () => setIsOpen(true)
-    const closeDial = () => setIsOpen(false)
+    const { classes, newHabitModalStore, connectionStateStore } = props
+    const [isSpeedDialOpen, setIsSpeedDialOpen] = useState(false)
+    const { isOnline } = connectionStateStore
+    const { openNewHabitModal, isOpen } = newHabitModalStore
+    const openDial = () => setIsSpeedDialOpen(true)
+    const closeDial = () => setIsSpeedDialOpen(false)
 
     const onDialActionClick = (key) => () => {
         openNewHabitModal(key)
         closeDial()
     }
 
-    if (newHabitModalStore.isOpen) {
+    if (isOpen) {
         return null
     }
 
     return (
         <>
-            <Backdrop open={isOpen} className={classes.backdrop} />
+            <Backdrop open={isSpeedDialOpen} className={classes.backdrop} />
             <SpeedDial
                 ariaLabel='new-habit'
                 direction='up'
@@ -75,7 +76,8 @@ const NewHabitBtnPure = (props) => {
                 icon={<SpeedDialIcon />}
                 onClose={closeDial}
                 onOpen={openDial}
-                open={isOpen}
+                open={isSpeedDialOpen}
+                FabProps={{ disabled: !isOnline }}
             >
                 {actions.map((action) => (
                     <SpeedDialAction
@@ -93,6 +95,10 @@ const NewHabitBtnPure = (props) => {
     )
 }
 
-const NewHabitBtn = flowRight(withStyles(styles), inject('newHabitModalStore'), observer)(NewHabitBtnPure)
+const NewHabitBtn = flowRight(
+    withStyles(styles),
+    inject('newHabitModalStore', 'connectionStateStore'),
+    observer
+)(NewHabitBtnPure)
 
 export { NewHabitBtn }
