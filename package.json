@@ -84,13 +84,16 @@
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.1",
     "webpack-manifest-plugin": "2.2.0",
+    "workbox-precaching": "^6.1.5",
     "workbox-webpack-plugin": "5.1.4",
     "yup": "^0.32.9"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "bs": "npm run build && serve -s build",
+    "serve": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
@@ -168,6 +171,7 @@
     ]
   },
   "devDependencies": {
+    "serve": "^11.3.2",
     "worker-loader": "^3.0.8"
   }
 }
