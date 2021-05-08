@@ -84,7 +84,7 @@ const styles = (theme) => {
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
-            marginTop: '20vh',
+            marginTop: '15vh',
             color: theme.home.landingText,
             [theme.breakpoints.down('sm')]: {
                 flexDirection: 'column',
