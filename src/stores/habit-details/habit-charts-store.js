@@ -12,11 +12,15 @@ export class HabitChartsStore {
         this.isExecutionsInitialized = false
         this.currentUpdateChartsPromise = null
         this.executionsMap = null
+        this.chartData = {
+            overview: null
+        }
         makeObservable(this, {
             executionsMap: observable,
             isExecutionsInitialized: observable,
             onExecutionsChange: action,
-            handleUpdateCharts: flow
+            handleUpdateCharts: flow,
+            chartData: observable
         })
     }
 
@@ -66,16 +70,9 @@ export class HabitChartsStore {
         try {
             const habit = toJS(this.habitDetailsStore.habit)
             const executionsMap = toJS(this.executionsMap)
-            const res = yield this.executionsWorker.getTotalValues(habit, executionsMap)
-            console.log(
-                '🚀 ~ file: habit-charts-store.js ~ line 56 ~ HabitChartsStore ~ *handleUpdateCharts ~ res',
-                res
-            )
+            this.chartData.overview = yield this.executionsWorker.getOverviewData(habit, executionsMap)
         } catch (ex) {
-            console.log(
-                '🚀 ~ file: habit-charts-store.js ~ line 57 ~ HabitChartsStore ~ *handleUpdateCharts ~ ex',
-                ex
-            )
+            this.uiStore.showSnackbar('error', ex.message)
         }
     }
 }

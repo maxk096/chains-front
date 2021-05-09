@@ -14,6 +14,7 @@ import { HabitEditStore } from '../../stores/habit-details/habit-edit-store'
 import { DeleteHabitStore } from '../../stores/habit-details/delete-habit-store'
 import { withExecutionsWorker } from './executions-worker-provider'
 import { HabitChartsStore } from '../../stores/habit-details/habit-charts-store'
+import { HabitCharts } from './charts/habit-charts'
 
 const styles = (theme) => {
     return createStyles({
@@ -68,6 +69,7 @@ class HabitDetailsPure extends React.Component {
         return (
             <div>
                 <HabitItem habit={habit} detailedView showEdit showDelete />
+                <HabitCharts />
             </div>
         )
     }
@@ -103,6 +105,7 @@ class HabitDetailsPure extends React.Component {
                 habitExecutionStore={this.habitExecutionStore}
                 habitEditStore={this.habitEditStore}
                 deleteHabitStore={this.deleteHabitStore}
+                habitChartsStore={this.habitChartsStore}
             >
                 <div className={classes.content}>
                     <div className={classes.innerContent}>

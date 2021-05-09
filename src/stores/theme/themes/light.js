@@ -109,6 +109,12 @@ export const lightTheme = createMuiTheme({
         breakType: '#ff7272',
         executed: '#4fb54f'
     },
+    charts: {
+        overallCircleStroke: '#ff9000',
+        overallCircleShadow: '#cfcfcf',
+        positive: '#008000',
+        negative: '#ef0000'
+    },
     light: '#fff',
     logoTitle: '#ff9000',
     logoTitleReversed: '#fff',

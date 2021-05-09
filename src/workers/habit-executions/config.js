@@ -1,1 +1,1 @@
-export const PERCENTAGE_SCORE_PER_DAY = 4
+export const SCORE_PER_DAY = 4
