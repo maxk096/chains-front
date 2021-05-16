@@ -3,6 +3,7 @@ import { flowRight } from 'lodash'
 import React from 'react'
 import { observer } from 'mobx-react'
 import { OverviewChart } from './overview-chart'
+import { CalendarChart } from './calendar-chart'
 
 const styles = (theme) => {
     return createStyles({})
@@ -13,6 +14,7 @@ class HabitChartsPure extends React.Component {
         return (
             <>
                 <OverviewChart />
+                <CalendarChart />
             </>
         )
     }

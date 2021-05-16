@@ -100,7 +100,8 @@ class HabitItemPure extends React.Component {
             onClick,
             onTitleClick,
             showEdit,
-            showDelete
+            showDelete,
+            className
         } = this.props
         const { type, question, reason } = habit
         const HabitIcon = habitIcon[habit.icon]
@@ -111,7 +112,7 @@ class HabitItemPure extends React.Component {
         const shouldShowActions = showExecution || showEdit || showDelete
 
         return (
-            <Card className={classes.root} elevation={3} onClick={onClick}>
+            <Card className={classNames(classes.root, className)} elevation={3} onClick={onClick}>
                 <div className={classes.titleWrap}>
                     {HabitIcon ? (
                         <HabitIcon className={iconClassName} />

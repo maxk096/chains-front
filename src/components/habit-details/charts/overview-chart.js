@@ -38,13 +38,12 @@ class OverviewChartPure extends React.Component {
             return null
         }
 
-        const { overallScore } = overview
         return (
             <Card>
                 <Typography variant='h6'>Overview</Typography>
                 <div className={classes.data}>
                     <div className={classes.dataItem}>
-                        <OverallScoreCircle overallScore={overallScore} />
+                        <OverallScoreCircle overallScore={overview.overallScore} />
                         <Typography variant='subtitle2'>
                             <span className={classes.valueTitle}>Overall score: </span>
                             <span className={classes.value}>{overview.overallScore}%</span>

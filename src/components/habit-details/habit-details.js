@@ -26,10 +26,17 @@ const styles = (theme) => {
         innerContent: {
             maxWidth: 900,
             padding: '20px 10px',
-            flex: 1
+            flex: 1,
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px'
         },
         loaderWrap: {
             height: '100%'
+        },
+        habitItem: {
+            margin: '0 !important'
         }
     })
 }
@@ -64,13 +71,14 @@ class HabitDetailsPure extends React.Component {
     }
 
     renderHabitContent = () => {
+        const { classes } = this.props
         const { habit } = this.habitDetailsStore
 
         return (
-            <div>
-                <HabitItem habit={habit} detailedView showEdit showDelete />
+            <>
+                <HabitItem className={classes.habitItem} habit={habit} detailedView showEdit showDelete />
                 <HabitCharts />
-            </div>
+            </>
         )
     }
 

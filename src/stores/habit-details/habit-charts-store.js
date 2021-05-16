@@ -71,6 +71,7 @@ export class HabitChartsStore {
             const habit = toJS(this.habitDetailsStore.habit)
             const executionsMap = toJS(this.executionsMap)
             this.chartData.overview = yield this.executionsWorker.getOverviewData(habit, executionsMap)
+            this.chartData.calendar = yield this.executionsWorker.getCalendarData(habit, executionsMap)
         } catch (ex) {
             this.uiStore.showSnackbar('error', ex.message)
         }
