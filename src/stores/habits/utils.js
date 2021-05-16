@@ -10,9 +10,9 @@ export const habitType = {
 export const habitValidationSchema = yup.object().shape({
     type: yup.mixed().oneOf(Object.values(habitType), 'Type is required.').namedRequired('Type'),
     icon: yup.mixed().oneOf(Object.keys(habitIcon)),
-    name: yup.string().namedRequired('Name'),
-    question: yup.string(),
-    reason: yup.string(),
+    name: yup.string().trim().namedRequired('Name'),
+    question: yup.string().trim(),
+    reason: yup.string().trim(),
     executionDays: yup
         .array(yup.number())
         .min(1, 'Select at least one execution day.')
