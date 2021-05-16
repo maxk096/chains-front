@@ -85,6 +85,7 @@ const styles = (theme) => {
             justifyContent: 'space-around',
             alignItems: 'center',
             marginTop: '15vh',
+            paddingBottom: '20px',
             color: theme.home.landingText,
             [theme.breakpoints.down('sm')]: {
                 flexDirection: 'column',
