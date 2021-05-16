@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { HABIT_CREATED_AT_FORMAT } from '../../stores/habits/utils'
 import { SCORE_PER_DAY } from './config'
 import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/habit-execution/utils'
-import { iterateByDay } from './utils'
+import { iterateByDay, normalizeScore } from './utils'
 import { ChartService } from './chart-service'
 
 class OverviewSevice extends ChartService {
@@ -76,10 +76,6 @@ class OverviewSevice extends ChartService {
         return this.getPeriodTrend('year')
     }
 
-    normalizeScore = (value) => {
-        return Math.max(Math.min(value, 100), 0)
-    }
-
     getOverallScore = () => {
         const { createdAt } = this.habit
         const createdAtDate = dayjs(createdAt, HABIT_CREATED_AT_FORMAT)
@@ -93,14 +89,14 @@ class OverviewSevice extends ChartService {
             const weekday = date.isoWeekday()
             const execution = this.executionsMap.get(formattedDate)
             if (execution?.type === executionType.EXECUTED) {
-                overallScore = this.normalizeScore(overallScore + SCORE_PER_DAY)
+                overallScore = normalizeScore(overallScore + SCORE_PER_DAY)
                 return
             }
             if (execution?.type === executionType.SKIPPED) {
                 return
             }
             if (this.executionDaysSet.has(weekday)) {
-                overallScore = this.normalizeScore(overallScore - SCORE_PER_DAY)
+                overallScore = normalizeScore(overallScore - SCORE_PER_DAY)
             }
         })
         return overallScore

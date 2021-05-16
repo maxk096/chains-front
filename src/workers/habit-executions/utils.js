@@ -13,3 +13,7 @@ export const iterateByYear = (start, end) => (cb) => {
 }
 
 export const createExecutionDaysSet = (executionDays) => new Set(executionDays)
+
+export const normalizeScore = (score) => {
+    return Math.max(Math.min(score, 100), 0)
+}

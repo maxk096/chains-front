@@ -114,14 +114,15 @@ export const lightTheme = createMuiTheme({
         overallCircleShadow: '#cfcfcf',
         positive: '#008000',
         negative: '#ef0000',
-        executed: '#10e825',
+        executed: '#15C784',
         skipped: '#ff8700',
         optional: '#0090ec',
         notExecuted: '#eeeeee',
         monthBorderColor: '#ffffff',
         dayBorderColor: '#ffffff',
         tootltipBg: '#fff',
-        scrollbarThumbBg: '#cacaca'
+        scrollbarThumbBg: '#cacaca',
+        scoreLineColor: '#15C784'
     },
     light: '#fff',
     logoTitle: '#ff9000',

@@ -3,25 +3,22 @@ import { flowRight } from 'lodash'
 import { createStyles, Card, withStyles, Typography } from '@material-ui/core'
 import { inject, observer } from 'mobx-react'
 import { Calendars } from './calendars'
+import { scrollbarStyles } from './styles'
+import classNames from 'classnames'
 
 export const CALENDAR_WIDTH = 880
 export const CALENDAR_HEIGHT = 180
 
 const styles = (theme) => {
     return createStyles({
+        ...scrollbarStyles(theme),
         root: {
             height: CALENDAR_HEIGHT
         },
         calendarsWrap: {
             overflowX: 'auto',
             overflowY: 'hidden',
-            display: 'flex',
-            '&::-webkit-scrollbar': {
-                height: '8px'
-            },
-            '&::-webkit-scrollbar-thumb': {
-                background: theme.charts.scrollbarThumbBg
-            }
+            display: 'flex'
         },
         tooltipRoot: {
             padding: 4
@@ -50,7 +47,7 @@ class CalendarChartPure extends React.Component {
             <Card>
                 <Typography variant='h6'>Calendar</Typography>
                 <div className={classes.root}>
-                    <div className={classes.calendarsWrap}>
+                    <div className={classNames(classes.calendarsWrap, classes.withScrollbar)}>
                         <div className={classes.tooltipSpacerStart}></div>
                         <Calendars calendar={calendar} />
                         <div className={classes.tooltipSpacerEnd}></div>

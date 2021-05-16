@@ -2,17 +2,15 @@ import React from 'react'
 import { Calendar } from '@nivo/calendar'
 import dayjs from 'dayjs'
 import { flowRight } from 'lodash'
-import { createStyles, Card, withStyles, withTheme } from '@material-ui/core'
+import { createStyles, withStyles, withTheme } from '@material-ui/core'
 import { observer } from 'mobx-react'
 import scrollIntoViewifNeeded from 'scroll-into-view-if-needed'
 import { executionTypeToColorNumber } from '../../../workers/habit-executions/config'
 import { CALENDAR_HEIGHT, CALENDAR_WIDTH } from './calendar-chart'
+import { ChartTooltip } from './chart-tooltip'
 
 const styles = (theme) => {
     return createStyles({
-        tooltipRoot: {
-            padding: 4
-        },
         tooltipSpacer: {
             width: 110,
             flexShrink: 0
@@ -63,15 +61,14 @@ class CalendarsPure extends React.Component {
     }
 
     tooltip = (item) => {
-        const { classes } = this.props
         const date = dayjs(item.date)
         const isNotDone = typeof item.data.value === 'undefined'
         const text = isNotDone ? 'Not done' : valueToName[item.data.value]
         return (
-            <Card className={classes.tooltipRoot}>
+            <ChartTooltip>
                 <span>{date.format('YYYY-MM-DD dddd')}: </span>
                 <strong style={{ color: !isNotDone && item.color }}>{text}</strong>
-            </Card>
+            </ChartTooltip>
         )
     }
 

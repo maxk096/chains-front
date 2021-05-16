@@ -4,6 +4,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { OverviewChart } from './overview-chart'
 import { CalendarChart } from './calendar-chart'
+import { ScoreChart } from './score-chart'
 
 const styles = (theme) => {
     return createStyles({})
@@ -15,6 +16,7 @@ class HabitChartsPure extends React.Component {
             <>
                 <OverviewChart />
                 <CalendarChart />
+                <ScoreChart />
             </>
         )
     }

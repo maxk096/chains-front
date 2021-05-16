@@ -9,3 +9,4 @@ export const executionTypeToColorNumber = {
 }
 
 export const CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
+export const SCORE_CHART_MONTH_FORMAT = 'YYYY MMM'
