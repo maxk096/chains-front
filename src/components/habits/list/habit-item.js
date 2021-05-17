@@ -53,10 +53,11 @@ const styles = (theme) => {
             display: 'inline-block'
         },
         actions: {
-            display: 'inline-flex',
+            display: 'flex',
             gap: '10px',
             height: '100%',
             marginLeft: 10,
+            alignItems: 'center',
             [theme.breakpoints.down('xs')]: {
                 flexDirection: 'column'
             }
