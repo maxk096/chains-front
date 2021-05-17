@@ -73,6 +73,10 @@ export class HabitChartsStore {
             this.chartData.overview = yield this.executionsWorker.getOverviewData(habit, executionsMap)
             this.chartData.calendar = yield this.executionsWorker.getCalendarData(habit, executionsMap)
             this.chartData.score = yield this.executionsWorker.getScoreData(habit, executionsMap)
+            this.chartData.yearExecutions = yield this.executionsWorker.getYearExecutionsData(
+                habit,
+                executionsMap
+            )
         } catch (ex) {
             this.uiStore.showSnackbar('error', ex.message)
         }

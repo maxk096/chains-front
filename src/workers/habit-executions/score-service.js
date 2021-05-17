@@ -69,6 +69,6 @@ class ScoreSevice extends ChartService {
 }
 
 export const getScoreData = (habit, executionsMap) => {
-    const calendarSevice = new ScoreSevice(habit, executionsMap)
-    return calendarSevice.getScoreData()
+    const scoreSevice = new ScoreSevice(habit, executionsMap)
+    return scoreSevice.getScoreData()
 }

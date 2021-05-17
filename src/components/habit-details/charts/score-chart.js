@@ -47,7 +47,8 @@ class ScoreChartPure extends React.Component {
             onScoreChange: action,
             goToNextMonth: action,
             goToPrevMonth: action,
-            currentMonthData: computed
+            currentMonthData: computed,
+            chartLine: computed
         })
         this.onScoreChangeUnsub = reaction(() => habitChartsStore.chartData?.score, this.onScoreChange)
     }
@@ -141,7 +142,7 @@ class ScoreChartPure extends React.Component {
                                 margin={{ top: 20, right: 60, bottom: 50, left: 60 }}
                                 axisTop={null}
                                 axisRight={null}
-                                colors={[theme.charts.scoreLineColor]}
+                                colors={[theme.charts.chartColorPrimary]}
                                 axisBottom={{
                                     tickSize: 5,
                                     tickPadding: 5,

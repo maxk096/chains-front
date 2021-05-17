@@ -122,7 +122,7 @@ export const lightTheme = createMuiTheme({
         dayBorderColor: '#ffffff',
         tootltipBg: '#fff',
         scrollbarThumbBg: '#cacaca',
-        scoreLineColor: '#15C784'
+        chartColorPrimary: '#15C784'
     },
     light: '#fff',
     logoTitle: '#ff9000',
