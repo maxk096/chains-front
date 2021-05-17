@@ -165,6 +165,7 @@ class ScoreChartPure extends React.Component {
                                 pointBorderColor={{ from: 'serieColor' }}
                                 pointLabelYOffset={-12}
                                 useMesh={true}
+                                enableArea
                             />
                         )}
                     </AutoSizer>
