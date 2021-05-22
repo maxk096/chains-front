@@ -107,7 +107,7 @@ export class NewHabitFromPhotoStore extends LoadingStore {
             this.decodedHabits = this.parseDecodedHabits(text)
             this.setState(modalState.DECODED_HABITS)
         } catch (ex) {
-            this.addErrorState(errorState.IMAGE_DECODING_ERROR, ex.message)
+            this.addErrorState(errorState.IMAGE_DECODING_ERROR, ex.message || 'Unable to decode a photo.')
         } finally {
             this.deleteLoadingState(loadingState.IMAGE_DECODING)
         }
