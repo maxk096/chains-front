@@ -2,7 +2,9 @@ import { createMuiTheme } from '@material-ui/core/styles'
 
 const img = (file) => `/img/${file}`
 
-export const lightTheme = createMuiTheme({
+const blueBgPrimary = '#316FEA'
+
+export const blueTheme = createMuiTheme({
     fontFamilyMain: 'Roboto',
     palette: {
         primary: {
@@ -41,7 +43,7 @@ export const lightTheme = createMuiTheme({
     overrides: {
         MuiAppBar: {
             colorPrimary: {
-                backgroundColor: '#ff9000',
+                backgroundColor: blueBgPrimary,
                 boxShadow: 'none'
             }
         },
@@ -57,7 +59,7 @@ export const lightTheme = createMuiTheme({
                 minHeight: 36
             },
             containedPrimary: {
-                backgroundColor: '#ff9000 !important'
+                backgroundColor: `${blueBgPrimary} !important`
             }
         },
         MuiCircularProgress: {
@@ -75,7 +77,7 @@ export const lightTheme = createMuiTheme({
                 color: '#fff'
             },
             primary: {
-                backgroundColor: '#ff9000 !important'
+                backgroundColor: `${blueBgPrimary} !important`
             }
         },
         MuiTooltip: {
@@ -104,13 +106,13 @@ export const lightTheme = createMuiTheme({
         activeColor: '#4c94ff'
     },
     habit: {
-        iconColor: '#001fffa6',
+        iconColor: blueBgPrimary,
         buildType: '#4fb54f',
         breakType: '#ff7272',
         executed: '#4fb54f'
     },
     charts: {
-        overallCircleStroke: '#ff9000',
+        overallCircleStroke: blueBgPrimary,
         overallCircleShadow: '#cfcfcf',
         positive: '#008000',
         negative: '#ef0000',
@@ -125,13 +127,13 @@ export const lightTheme = createMuiTheme({
         chartColorPrimary: '#15C784'
     },
     light: '#fff',
-    logoTitle: '#ff9000',
+    logoTitle: blueBgPrimary,
     logoTitleReversed: '#fff',
     textSecondary: '#7b8692',
     headerLink: '#fff',
     headerLinkActive: '#d9d9d9',
     loadingButtonPendingColor: '#fff',
-    loaderProgressColor: '#ff9000',
+    loaderProgressColor: blueBgPrimary,
     logoLight: img('chains-logo-light.png'),
-    logoOrange: img('chains-logo-orange.png')
+    logo: img('chains-logo-blue.png')
 })
