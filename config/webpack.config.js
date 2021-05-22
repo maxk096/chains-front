@@ -28,6 +28,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
+const { getAdditionalManifestEntries } = require('./manifestEntries');
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -534,6 +535,10 @@ module.exports = function (webpackEnv) {
                 'sass-loader'
               ),
             },
+            {
+              test: /\.worker\.js$/,
+              loader: require.resolve('worker-loader')
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
@@ -676,6 +681,7 @@ module.exports = function (webpackEnv) {
           swSrc,
           dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
           exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/],
+          additionalManifestEntries: getAdditionalManifestEntries(),
           // Bump up the default maximum size (2mb) that's precached,
           // to make lazy-loading failure scenarios less likely.
           // See https://github.com/cra-template/pwa/issues/13#issuecomment-722667270
