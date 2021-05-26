@@ -99,7 +99,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "bs": "npm run build && serve -s build",
-    "serve": "serve -s build"
+    "serve": "serve -s build",
+    "release": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
