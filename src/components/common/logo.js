@@ -8,7 +8,7 @@ const styles = (theme) => {
     return createStyles({
         ...getCommonStyles(theme),
         logoImg: {
-            backgroundImage: `url("${theme.logoOrange}")`,
+            backgroundImage: `url("${theme.logo}")`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             width: 28,

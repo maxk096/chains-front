@@ -1,9 +1,9 @@
 import { makeObservable, observable } from 'mobx'
-import { lightTheme } from './themes/light'
+import { blueTheme } from './themes/blue'
 
 export class ThemeStore {
     constructor() {
-        this.theme = lightTheme
+        this.theme = blueTheme
         makeObservable(this, {
             theme: observable
         })
