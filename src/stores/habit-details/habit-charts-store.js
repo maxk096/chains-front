@@ -13,7 +13,10 @@ export class HabitChartsStore {
         this.currentUpdateChartsPromise = null
         this.executionsMap = null
         this.chartData = {
-            overview: null
+            overview: null,
+            calendar: null,
+            score: null,
+            yearExecutions: null
         }
         makeObservable(this, {
             executionsMap: observable,
