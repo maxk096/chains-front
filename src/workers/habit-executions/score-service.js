@@ -1,11 +1,10 @@
 import dayjs from 'dayjs'
-import { HABIT_CREATED_AT_FORMAT } from '../../stores/habits/utils'
 import { SCORE_PER_DAY, SCORE_CHART_MONTH_FORMAT } from './config'
 import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/habit-execution/utils'
 import { iterateByDay, normalizeScore } from './utils'
 import { ChartService } from './chart-service'
 
-class ScoreSevice extends ChartService {
+class ScoreService extends ChartService {
     addItem = (monthChart, date, score) => {
         monthChart[0].data.push({
             x: date.format('DD'),
@@ -35,7 +34,7 @@ class ScoreSevice extends ChartService {
 
     getScoreData = () => {
         const { createdAt } = this.habit
-        const createdAtDate = dayjs(createdAt, HABIT_CREATED_AT_FORMAT)
+        const createdAtDate = dayjs(createdAt)
         const endDate = dayjs()
         const monthlyData = []
         const monthlyMap = new Map()
@@ -69,6 +68,6 @@ class ScoreSevice extends ChartService {
 }
 
 export const getScoreData = (habit, executionsMap) => {
-    const scoreSevice = new ScoreSevice(habit, executionsMap)
-    return scoreSevice.getScoreData()
+    const scoreService = new ScoreService(habit, executionsMap)
+    return scoreService.getScoreData()
 }
