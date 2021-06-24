@@ -36,35 +36,34 @@ class OverviewService extends ChartService {
         return { totalExecutions, notSkippedExecutionDaysInPeriod }
     }
 
-    computeRatio = (current, prev) => {
-        const ratio = current / prev
-        if (isNaN(ratio) || !isFinite(ratio)) {
-            return 0
-        }
-        return ratio * 100
+    computeRatio = (curr, prev) => {
+        return (curr / prev) * 100
     }
 
-    formatSimpleNumber = (num) => {
-        return Number(num.toFixed(1))
+    computePeriodTrend = (curr, prev) => {
+        if (!prev) {
+            return NaN
+        }
+        const trend = curr - prev
+        return Number(trend.toFixed(1))
     }
 
     getPeriodTrend = (period) => {
-        const currentPeriodStart = dayjs().subtract(1, period)
-        const currentPeriodEnd = dayjs()
-        const prevPeriodEnd = currentPeriodStart.subtract(1, 'day')
+        const currPeriodStart = dayjs().subtract(1, period)
+        const currPeriodEnd = dayjs()
+        const prevPeriodEnd = currPeriodStart.subtract(1, 'day')
         const prevPeriodStart = prevPeriodEnd.subtract(1, period)
-        const currentPeriodInfo = this.getExecutionsInfoByPeriod(currentPeriodStart, currentPeriodEnd)
+        const currPeriodInfo = this.getExecutionsInfoByPeriod(currPeriodStart, currPeriodEnd)
         const prevPeriodInfo = this.getExecutionsInfoByPeriod(prevPeriodStart, prevPeriodEnd)
-        const currentPeriodRatio = this.computeRatio(
-            currentPeriodInfo.totalExecutions,
-            currentPeriodInfo.notSkippedExecutionDaysInPeriod
+        const currPeriodRatio = this.computeRatio(
+            currPeriodInfo.totalExecutions,
+            currPeriodInfo.notSkippedExecutionDaysInPeriod
         )
         const prevPeriodRatio = this.computeRatio(
             prevPeriodInfo.totalExecutions,
             prevPeriodInfo.notSkippedExecutionDaysInPeriod
         )
-        const periodRatio = this.formatSimpleNumber(currentPeriodRatio - prevPeriodRatio)
-        return periodRatio
+        return this.computePeriodTrend(currPeriodRatio, prevPeriodRatio)
     }
 
     getMonthlyTrend = () => {

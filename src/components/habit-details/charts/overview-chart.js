@@ -21,8 +21,12 @@ const styles = (theme) => {
         valueTitle: {
             fontWeight: 'normal'
         },
-        value: {},
         dataItem: {
+            display: 'flex',
+            alignItems: 'center',
+            whiteSpace: 'pre-wrap'
+        },
+        trendTypography: {
             display: 'flex',
             alignItems: 'center'
         }
@@ -46,29 +50,25 @@ class OverviewChartPure extends React.Component {
                         <OverallScoreCircle overallScore={overview.overallScore} />
                         <Typography variant='subtitle2'>
                             <span className={classes.valueTitle}>Overall score: </span>
-                            <span className={classes.value}>{overview.overallScore}%</span>
+                            <span>{overview.overallScore}%</span>
                         </Typography>
                     </div>
                     <div className={classes.dataItem}>
-                        <Typography variant='subtitle2'>
+                        <Typography variant='subtitle2' className={classes.trendTypography}>
                             <span className={classes.valueTitle}>Monthly trend: </span>
-                            <span className={classes.value}>
-                                <TrendNumber value={overview.monthlyTrend} />
-                            </span>
+                            <TrendNumber value={overview.monthlyTrend} />
                         </Typography>
                     </div>
                     <div className={classes.dataItem}>
-                        <Typography variant='subtitle2'>
+                        <Typography variant='subtitle2' className={classes.trendTypography}>
                             <span className={classes.valueTitle}>Yearly trend: </span>
-                            <span className={classes.value}>
-                                <TrendNumber value={overview.yearlyTrend} />
-                            </span>
+                            <TrendNumber value={overview.yearlyTrend} />
                         </Typography>
                     </div>
                     <div className={classes.dataItem}>
                         <Typography variant='subtitle2'>
                             <span className={classes.valueTitle}>Total executions: </span>
-                            <span className={classes.value}>{overview.totalExecutions}</span>
+                            <span>{overview.totalExecutions}</span>
                         </Typography>
                     </div>
                 </div>

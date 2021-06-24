@@ -13,7 +13,7 @@ const OfflineTooltipPure = (props) => {
     }
 
     return (
-        <Tooltip title='You are offline. Certain functions will not work.'>
+        <Tooltip title='You are offline. Certain functions will not work.' enterTouchDelay={0}>
             <WifiOffIcon className={className} />
         </Tooltip>
     )
