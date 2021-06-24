@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import { HABIT_CREATED_AT_FORMAT } from '../../stores/habits/utils'
 import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/habit-execution/utils'
 import { iterateByDay } from './utils'
 import { ChartService } from './chart-service'
@@ -32,7 +31,7 @@ class YearExecutionsSevice extends ChartService {
 
     getYearExecutionsData = () => {
         const { createdAt } = this.habit
-        const createdAtDate = dayjs(createdAt, HABIT_CREATED_AT_FORMAT)
+        const createdAtDate = dayjs(createdAt)
         const endDate = dayjs()
         const yearlyMap = new Map()
         iterateByDay(

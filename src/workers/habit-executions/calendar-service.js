@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import { HABIT_CREATED_AT_FORMAT } from '../../stores/habits/utils'
 import { CALENDAR_DATE_FORMAT, executionTypeToColorNumber } from './config'
 import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/habit-execution/utils'
 import { iterateByYear, iterateByDay } from './utils'
@@ -7,7 +6,7 @@ import { ChartService } from './chart-service'
 
 class CalendarService extends ChartService {
     getStartEndYears = () => {
-        const startYear = dayjs(this.habit.createdAt, HABIT_CREATED_AT_FORMAT).startOf('year')
+        const startYear = dayjs(this.habit.createdAt).startOf('year')
         const endYear = dayjs().endOf('year')
         return { startYear, endYear }
     }
@@ -20,8 +19,8 @@ class CalendarService extends ChartService {
         )((date) => {
             years.push({
                 year: date.format('YYYY'),
-                from: date.startOf('year').format(CALENDAR_DATE_FORMAT),
-                to: date.endOf('year').format(CALENDAR_DATE_FORMAT),
+                from: new Date(date.startOf('year').toISOString()),
+                to: new Date(date.endOf('year').toISOString()),
                 data: []
             })
         })
@@ -33,7 +32,7 @@ class CalendarService extends ChartService {
     }
 
     getCalendarData = () => {
-        const createAtDate = dayjs(this.habit.createdAt, HABIT_CREATED_AT_FORMAT)
+        const createAtDate = dayjs(this.habit.createdAt)
         const todayDate = dayjs()
         const { startYear, endYear } = this.getStartEndYears()
         const yarsRange = this.getYearsRange(startYear, endYear)

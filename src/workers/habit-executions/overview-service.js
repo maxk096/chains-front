@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import { HABIT_CREATED_AT_FORMAT } from '../../stores/habits/utils'
 import { SCORE_PER_DAY } from './config'
 import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/habit-execution/utils'
 import { iterateByDay, normalizeScore } from './utils'
@@ -8,7 +7,7 @@ import { ChartService } from './chart-service'
 class OverviewSevice extends ChartService {
     getTotalExecutions = () => {
         const { createdAt } = this.habit
-        const start = dayjs(createdAt, HABIT_CREATED_AT_FORMAT)
+        const start = dayjs(createdAt)
         const end = dayjs()
         const info = this.getExecutionsInfoByPeriod(start, end)
         return info.totalExecutions
@@ -78,7 +77,7 @@ class OverviewSevice extends ChartService {
 
     getOverallScore = () => {
         const { createdAt } = this.habit
-        const createdAtDate = dayjs(createdAt, HABIT_CREATED_AT_FORMAT)
+        const createdAtDate = dayjs(createdAt)
         const endDate = dayjs()
         let overallScore = 0
         iterateByDay(
