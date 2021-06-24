@@ -45,7 +45,7 @@ class OverviewService extends ChartService {
     }
 
     formatSimpleNumber = (num) => {
-        return Number(num.toFixed(0))
+        return Number(num.toFixed(1))
     }
 
     getPeriodTrend = (period) => {
