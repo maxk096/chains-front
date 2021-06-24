@@ -15,10 +15,7 @@ const getAdditionalManifestEntries = () => {
             revision: fileChecksum
         }
     })
-    const others = [
-        { url: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap', revision: null }
-    ]
-    const entries = [...images, ...others]
+    const entries = [...images]
     return entries
 }
 

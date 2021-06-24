@@ -5,7 +5,7 @@ import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/
 import { iterateByYear, iterateByDay } from './utils'
 import { ChartService } from './chart-service'
 
-class CalendarSevice extends ChartService {
+class CalendarService extends ChartService {
     getStartEndYears = () => {
         const startYear = dayjs(this.habit.createdAt, HABIT_CREATED_AT_FORMAT).startOf('year')
         const endYear = dayjs().endOf('year')
@@ -68,8 +68,8 @@ class CalendarSevice extends ChartService {
 }
 
 export const getCalendarData = (habit, executionsMap) => {
-    const calendarSevice = new CalendarSevice(habit, executionsMap)
+    const calendarService = new CalendarService(habit, executionsMap)
     return {
-        data: calendarSevice.getCalendarData()
+        data: calendarService.getCalendarData()
     }
 }

@@ -48,7 +48,8 @@ class YearExecutionsChartPure extends React.Component {
         })
         this.onYearExecutionsChangeUnsub = reaction(
             () => habitChartsStore.chartData?.yearExecutions,
-            this.onYearExecutionsChange
+            this.onYearExecutionsChange,
+            { fireImmediately: true }
         )
     }
 
@@ -66,9 +67,12 @@ class YearExecutionsChartPure extends React.Component {
         return yearIndex >= 0 && yearIndex < habitChartsStore.chartData.yearExecutions.length
     }
 
-    onYearExecutionsChange = (score) => {
+    onYearExecutionsChange = (yearExecutions) => {
+        if (!yearExecutions) {
+            return
+        }
         if (this.yearIndex === null || !this.isInYearRange(this.yearIndex)) {
-            this.yearIndex = score.length - 1
+            this.yearIndex = yearExecutions.length - 1
         }
     }
 
@@ -87,7 +91,7 @@ class YearExecutionsChartPure extends React.Component {
     }
 
     tooltip = ({ data }) => {
-        const{classes} =this.props
+        const { classes } = this.props
         const { month, total } = data
         return (
             <div className={classes.tooltip}>

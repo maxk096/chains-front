@@ -50,7 +50,9 @@ class ScoreChartPure extends React.Component {
             currentMonthData: computed,
             chartLine: computed
         })
-        this.onScoreChangeUnsub = reaction(() => habitChartsStore.chartData?.score, this.onScoreChange)
+        this.onScoreChangeUnsub = reaction(() => habitChartsStore.chartData?.score, this.onScoreChange, {
+            fireImmediately: true
+        })
     }
 
     get currentMonthData() {
@@ -72,6 +74,9 @@ class ScoreChartPure extends React.Component {
     }
 
     onScoreChange = (score) => {
+        if (!score) {
+            return
+        }
         if (this.monthIndex === null || !this.isInMonthlyRange(this.monthIndex)) {
             this.monthIndex = score.length - 1
         }
