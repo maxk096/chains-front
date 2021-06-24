@@ -4,7 +4,7 @@ import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/
 import { iterateByDay, normalizeScore } from './utils'
 import { ChartService } from './chart-service'
 
-class OverviewSevice extends ChartService {
+class OverviewService extends ChartService {
     getTotalExecutions = () => {
         const { createdAt } = this.habit
         const start = dayjs(createdAt)
@@ -103,12 +103,12 @@ class OverviewSevice extends ChartService {
 }
 
 export const getOverviewData = (habit, executionsMap) => {
-    const overviewSevice = new OverviewSevice(habit, executionsMap)
+    const overviewService = new OverviewService(habit, executionsMap)
     const data = {
-        totalExecutions: overviewSevice.getTotalExecutions(),
-        overallScore: overviewSevice.getOverallScore(),
-        monthlyTrend: overviewSevice.getMonthlyTrend(),
-        yearlyTrend: overviewSevice.getYearlyTrend()
+        totalExecutions: overviewService.getTotalExecutions(),
+        overallScore: overviewService.getOverallScore(),
+        monthlyTrend: overviewService.getMonthlyTrend(),
+        yearlyTrend: overviewService.getYearlyTrend()
     }
     return data
 }

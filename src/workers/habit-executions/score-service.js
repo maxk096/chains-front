@@ -4,7 +4,7 @@ import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/
 import { iterateByDay, normalizeScore } from './utils'
 import { ChartService } from './chart-service'
 
-class ScoreSevice extends ChartService {
+class ScoreService extends ChartService {
     addItem = (monthChart, date, score) => {
         monthChart[0].data.push({
             x: date.format('DD'),
@@ -68,6 +68,6 @@ class ScoreSevice extends ChartService {
 }
 
 export const getScoreData = (habit, executionsMap) => {
-    const scoreSevice = new ScoreSevice(habit, executionsMap)
-    return scoreSevice.getScoreData()
+    const scoreService = new ScoreService(habit, executionsMap)
+    return scoreService.getScoreData()
 }

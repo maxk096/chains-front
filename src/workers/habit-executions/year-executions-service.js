@@ -3,7 +3,7 @@ import { executionType, EXECUTION_CREATED_AT_FORMAT } from '../../stores/habits/
 import { iterateByDay } from './utils'
 import { ChartService } from './chart-service'
 
-class YearExecutionsSevice extends ChartService {
+class YearExecutionsService extends ChartService {
     createYearData = (year) => {
         return { year, data: [] }
     }
@@ -50,6 +50,6 @@ class YearExecutionsSevice extends ChartService {
 }
 
 export const getYearExecutionsData = (habit, executionsMap) => {
-    const yearExecutionsSevice = new YearExecutionsSevice(habit, executionsMap)
-    return yearExecutionsSevice.getYearExecutionsData()
+    const yearExecutionsService = new YearExecutionsService(habit, executionsMap)
+    return yearExecutionsService.getYearExecutionsData()
 }
