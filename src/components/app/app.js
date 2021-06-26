@@ -13,6 +13,7 @@ import { UiStore } from '../../stores/ui/ui-store'
 import { AppSnackbarProvider } from '../common/snackbar/snackbar-provider'
 import { RegisterSnackbar } from '../common/snackbar/register-snackbar'
 import { ConnectionStateStore } from '../../stores/connection-state/connection-state-store'
+import { DayObserverStore } from '../../stores/day-observer/day-observer-store'
 
 class AppPure extends React.Component {
     constructor(p) {
@@ -22,12 +23,14 @@ class AppPure extends React.Component {
         const userStore = new UserStore({ authFacade })
         const uiStore = new UiStore()
         const connectionStateStore = new ConnectionStateStore()
+        const dayObserverStore = new DayObserverStore()
         this.globalStores = {
             themeStore,
             userStore,
             authFacade,
             uiStore,
-            connectionStateStore
+            connectionStateStore,
+            dayObserverStore
         }
 
         const habitsTransport = new HabitsTransport({ userStore })
@@ -39,16 +42,19 @@ class AppPure extends React.Component {
     componentDidMount() {
         this.globalStores.userStore.init()
         this.globalStores.connectionStateStore.init()
+        this.globalStores.dayObserverStore.init()
     }
 
     componentWillUnmount() {
         this.globalStores.userStore.cleanUp()
         this.globalStores.connectionStateStore.cleanUp()
+        this.globalStores.dayObserverStore.cleanUp()
     }
 
     render() {
-        const { userStore, themeStore, connectionStateStore } = this.globalStores
-        const isInitialized = userStore.isInitialized && connectionStateStore.isInitialized
+        const { userStore, themeStore, connectionStateStore, dayObserverStore } = this.globalStores
+        const isInitialized =
+            userStore.isInitialized && connectionStateStore.isInitialized && dayObserverStore.isInitialized
 
         if (!isInitialized) {
             return null

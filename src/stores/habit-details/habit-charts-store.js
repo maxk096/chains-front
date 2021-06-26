@@ -5,6 +5,7 @@ export class HabitChartsStore {
         this.executionsWorker = props.executionsWorker
         this.habitsTransport = props.habitsTransport
         this.habitDetailsStore = props.habitDetailsStore
+        this.dayObserverStore = props.dayObserverStore
         this.uiStore = props.uiStore
         this.habitId = props.habitId
         this.onExecutionsChangeUnsub = null
@@ -12,6 +13,7 @@ export class HabitChartsStore {
         this.isExecutionsInitialized = false
         this.currentUpdateChartsPromise = null
         this.executionsMap = null
+        this.dayChangeUnsub = null
         this.chartData = {
             overview: null,
             calendar: null,
@@ -28,17 +30,28 @@ export class HabitChartsStore {
     }
 
     init = () => {
-        this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
-            .where('habitId', '==', this.habitId)
-            .onSnapshot(this.onExecutionsChange)
+        this.subscribeToExecutions()
+        this.dayChangeUnsub = this.dayObserverStore.subToDayChange(this.onDayChange)
         this.onHabitChangeUnsub = reaction(() => this.habitDetailsStore.habit, this.onHabitChange, {
             fireImmediately: true
         })
     }
 
     cleanUp = () => {
-        this.onExecutionsChangeUnsub()
         this.onHabitChangeUnsub()
+        this.dayChangeUnsub()
+        this.onExecutionsChangeUnsub()
+    }
+
+    onDayChange = () => {
+        this.onExecutionsChangeUnsub()
+        this.subscribeToExecutions()
+    }
+
+    subscribeToExecutions = () => {
+        this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
+            .where('habitId', '==', this.habitId)
+            .onSnapshot(this.onExecutionsChange)
     }
 
     onHabitChange = async () => {

@@ -5,11 +5,13 @@ import { EXECUTION_CREATED_AT_FORMAT, createNewExecution, executionType } from '
 export class HabitExecutionStore {
     constructor(props) {
         this.habitsTransport = props.habitsTransport
+        this.dayObserverStore = props.dayObserverStore
         this.uiStore = props.uiStore
         this.habitId = props.habitId
         this.onExecutionsChangeUnsub = null
         this.isExecutionsInitialized = false
         this.todaysExecutions = null
+        this.dayChangeUnsub = null
         makeObservable(this, {
             todaysExecutions: observable,
             isExecutionsInitialized: observable,
@@ -18,10 +20,25 @@ export class HabitExecutionStore {
     }
 
     init = () => {
-        const today = dayjs().format(EXECUTION_CREATED_AT_FORMAT)
+        this.subscribeToExecutions()
+        this.dayChangeUnsub = this.dayObserverStore.subToDayChange(this.onDayChange)
+    }
+
+    cleanUp = () => {
+        this.dayChangeUnsub()
+        this.onExecutionsChangeUnsub()
+    }
+
+    onDayChange = () => {
+        this.onExecutionsChangeUnsub()
+        this.subscribeToExecutions()
+    }
+
+    subscribeToExecutions = () => {
+        const today = this.dayObserverStore.observedDate.format(EXECUTION_CREATED_AT_FORMAT)
         if (this.habitId) {
             this.onExecutionsChangeUnsub = this.habitsTransport.executionsCollection
-                .where('habitId','==', this.habitId)
+                .where('habitId', '==', this.habitId)
                 .where('createdAt', '==', today)
                 .onSnapshot(this.onExecutionsChange)
         } else {
@@ -29,10 +46,6 @@ export class HabitExecutionStore {
                 .where('createdAt', '==', today)
                 .onSnapshot(this.onExecutionsChange)
         }
-    }
-
-    cleanUp = () => {
-        this.onExecutionsChangeUnsub()
     }
 
     onExecutionsChange = (snapshot) => {

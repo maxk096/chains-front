@@ -61,10 +61,10 @@ const styles = (theme) => {
 class HabitsPagePure extends React.Component {
     constructor(props) {
         super(props)
-        const { transport, uiStore } = this.props
+        const { transport, uiStore, dayObserverStore } = this.props
         const { habitsTransport } = transport
         this.habitsStore = new HabitsStore({ habitsTransport })
-        this.habitExecutionStore = new HabitExecutionStore({ habitsTransport, uiStore })
+        this.habitExecutionStore = new HabitExecutionStore({ habitsTransport, uiStore, dayObserverStore })
         this.newHabitModalStore = new NewHabitModalStore()
     }
 
@@ -152,7 +152,7 @@ class HabitsPagePure extends React.Component {
 const HabitsPage = flowRight(
     withStyles(styles),
     withRouter,
-    inject('transport', 'uiStore'),
+    inject('transport', 'uiStore', 'dayObserverStore'),
     observer
 )(HabitsPagePure)
 

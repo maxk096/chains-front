@@ -44,17 +44,23 @@ const styles = (theme) => {
 class HabitDetailsPure extends React.Component {
     constructor(props) {
         super(props)
-        const { transport, uiStore, history, habitId, executionsWorker } = this.props
+        const { transport, uiStore, history, habitId, executionsWorker, dayObserverStore } = this.props
         const { habitsTransport } = transport
         this.habitDetailsStore = new HabitDetailsStore({ habitId, habitsTransport })
-        this.habitExecutionStore = new HabitExecutionStore({ habitId, habitsTransport, uiStore })
+        this.habitExecutionStore = new HabitExecutionStore({
+            habitId,
+            habitsTransport,
+            uiStore,
+            dayObserverStore
+        })
         this.habitEditStore = new HabitEditStore({ habitsTransport, uiStore })
         this.deleteHabitStore = new DeleteHabitStore({ habitsTransport, uiStore, history })
         this.habitChartsStore = new HabitChartsStore({
             habitId,
             habitsTransport,
             executionsWorker,
-            habitDetailsStore: this.habitDetailsStore
+            habitDetailsStore: this.habitDetailsStore,
+            dayObserverStore
         })
     }
 
@@ -133,7 +139,7 @@ const HabitDetails = flowRight(
     withStyles(styles),
     withRouter,
     withExecutionsWorker(),
-    inject('transport', 'uiStore'),
+    inject('transport', 'uiStore', 'dayObserverStore'),
     observer
 )(HabitDetailsPure)
 
