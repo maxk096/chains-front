@@ -16,23 +16,21 @@ export class DayObserverStore {
 
     init = () => {
         this.observedDate = dayjs()
-        this.startTickIfNeeded()
+        this.intervalId = setInterval(this.onTick, 1_000)
         this.isInitialized = true
     }
 
     cleanUp = () => {
-        this.stopTick()
+        clearInterval(this.intervalId)
     }
 
     subToDayChange = (subscriber) => {
         this.subscribers.add(subscriber)
-        this.startTickIfNeeded()
         return this.createSubscriberDisposer(subscriber)
     }
 
     createSubscriberDisposer = (subscriber) => () => {
         this.subscribers.delete(subscriber)
-        this.stopTickIfNeeded()
     }
 
     onTick = () => {
@@ -43,22 +41,5 @@ export class DayObserverStore {
                 subscriber()
             })
         }
-    }
-
-    startTickIfNeeded = () => {
-        if (this.subscribers.size && this.intervalId === null) {
-            this.intervalId = setInterval(this.onTick, 1_000)
-        }
-    }
-
-    stopTickIfNeeded = () => {
-        if (!this.subscribers.size) {
-            this.stopTick()
-        }
-    }
-
-    stopTick = () => {
-        clearInterval(this.intervalId)
-        this.intervalId = null
     }
 }
